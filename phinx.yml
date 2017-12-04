@@ -1,0 +1,35 @@
+paths:
+    migrations: %%PHINX_CONFIG_DIR%%/db/migrations
+    seeds: %%PHINX_CONFIG_DIR%%/db/seeds
+
+environments:
+    default_migration_table: migrations
+    default_database: dev
+    production:
+        adapter: mysql
+        host: 127.0.0.1
+        name: fastfood_guru
+        user: root
+        pass: root
+        port: 3306
+        charset: utf8
+
+    dev:
+        adapter: mysql
+        host: 127.0.0.1
+        name: fastfood_guru_dev
+        user: root
+        pass: root
+        port: 3306
+        charset: utf8
+
+    testing:
+        adapter: mysql
+        host: localhost
+        name: testing_db
+        user: root
+        pass: ''
+        port: 3306
+        charset: utf8
+
+version_order: creation

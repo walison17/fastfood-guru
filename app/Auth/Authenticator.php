@@ -3,6 +3,7 @@
 namespace App\Auth;
 
 use App\Auth\AuthProvider;
+use App\Auth\AuthInterface;
 use App\Support\StorageInterface;
 use \App\Auth\Providers\AuthProviderInterface;
 
@@ -33,7 +34,7 @@ class Authenticator
         /** @var \App\Auth\AuthInterface */
         $user = $this->provider->retrieveByCredentials($credentials);
 
-        $this->storage->set(self::STORAGE_KEY, $user->getAuthIdentifier());
+        $this->activate($user);
 
         return $user;
     }
@@ -52,6 +53,17 @@ class Authenticator
         $identifier = $this->storage->get(self::STORAGE_KEY); 
 
         return $this->provider->retrieveByIdentifier($identifier);
+    }
+
+    /**
+     * adiciona o usuário na sessão 
+     *
+     * @param \App\Auth\AuthInterface $user
+     * @return void
+     */
+    public function activate(AuthInterface $user)
+    {
+        $this->storage->set(self::STORAGE_KEY, $user->getAuthIdentifier());
     }
 
     /**

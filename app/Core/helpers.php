@@ -270,8 +270,11 @@ if (! function_exists('config'))
     }
 }
 
-function return_if($condition, $return)
+if (! function_exists('return_if'))
 {
-    if ($condition) return $return;
+    function return_if($condition, $return)
+    {
+        if ($condition) return $return;
+    }
 }
 

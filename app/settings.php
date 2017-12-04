@@ -4,8 +4,6 @@ return [
     'settings' => [
         'debug' => true,
 
-        'test_mode' => true,
-        
         'whoops.editor' => 'vscode',
 
         'displayErrorDetails' => true, // set to false in production
