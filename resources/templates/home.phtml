@@ -1,0 +1,27 @@
+<?php $this->layout("layout") ?>
+<?php $this->start("body") ?>
+
+<section id="banner" style="background : url('<?= asset('images/back-banner.jpg') ?>')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-12 m-t-3">
+                <form data-action="" class="form-ajax">
+                    <input type="text" class="form-control" placeholder="Busque locais">
+                    <button class="btn btn-info"><i class="fa fa-search"></i> Buscar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="content-botao-scroll">
+        <a href="#avaliacoes" class="btn-mostra-scroll desce-efeito"><span></span><span></span><span></span></a>
+    </div>
+</section>
+
+<section id="avaliacoes" class="padding-section padding-bottom">
+    <div class="container">
+        <?= $this->insert("_partials/_titulo",["titulo" => "Avaliações","descricao" => "Conheça algumas avaliações abaixo"]) ?>
+        <?= $this->insert("_partials/_lista-avaliacoes") ?>
+    </div>
+</section>
+
+<?php $this->stop(); ?>

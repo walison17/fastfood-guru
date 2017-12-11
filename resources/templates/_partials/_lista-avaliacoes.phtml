@@ -1,0 +1,35 @@
+<div class="row m-t-3">
+    <?php for($i = 1;$i <= 6; $i++) : ?>
+        <div class="col-md-4 col-sm-12 col-12">
+            <div class="rating">
+                <div class="profile-top">
+                    <img src="<?= asset("images/user.png") ?>">
+                    <h4><a href="#">Nome Usuário</a></h4>
+                </div>
+                <div class="back-image">
+                    <a href="#">
+                        <img src="<?= asset("images/back-banner.jpg") ?>">
+                    </a>
+                </div>
+                <div class="content">
+                    <h4 class="name"><a href="#">Nome Empresa</a></h4>
+                    <div class="stars-content">
+                        <?php for($k = 1;$k <= 5;$k++): ?>
+                            <i title="Avalie" class="fa fa-star <?= $k < 4 ? 'active' : "" ?>"></i>
+                        <?php endfor ?>
+                    </div>
+                    <p class="description">
+                        Mussum Ipsum, cacilds vidis litro abertis. Mais vale um bebadis conhecidiss, que um alcoolatra anonimis. Paisis, filhis, espiritis santis. Diuretics paradis num copo é motivis de denguis. Leite de capivaris, leite de mula manquis sem cabeça.  
+                    </p>
+                    <div class="list-options">
+                        <a href="#"><i class="fa fa-thumbs-o-up"></i> Curtir</a>
+                        <a href="#"><i class="fa fa-comment"></i> Enviar Availiação</a>
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    <?php endfor ?>
+</div>
