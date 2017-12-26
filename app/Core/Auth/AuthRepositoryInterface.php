@@ -18,5 +18,5 @@ interface AuthRepositoryInterface
      * @param string $email
      * @return \App\Core\Auth\AuthenticableInterface
      */
-    public function getByEmail(string $username);
+    public function getByEmail(string $email);
 }
