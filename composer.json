@@ -21,7 +21,9 @@
         "projek-xyz/slim-plates": "^0.2.2",
         "oscarotero/psr7-middlewares": "^3.21",
         "zeuxisoo/slim-whoops": "^0.6.1",
-        "illuminate/database": "^5.5"
+        "illuminate/database": "^5.5",
+        "respect/validation": "^1.1",
+        "slim/flash": "^0.4.0"
     },
     "require-dev": {
         "phpspec/phpspec": "^4.2",

@@ -3,7 +3,6 @@
 namespace App\Core;
 
 use JsonSerializable;
-use Illuminate\Support\Collection;
 use Psr\Http\Message\RequestInterface;
 
 class Paginator implements JsonSerializable
@@ -11,7 +10,7 @@ class Paginator implements JsonSerializable
     /**
      * items da paginação
      *
-     * @var \Illuminate\Support\Collection
+     * @var array
      */
     protected $items;
     
@@ -60,7 +59,7 @@ class Paginator implements JsonSerializable
         array $options = []
     )
     {
-        $this->items = $items instanceof Collection ?: Collection::make($items);
+        $this->items = $items;
         $this->total = $total;
         $this->perPage = $perPage;
         $this->queryParam = $queryParam;

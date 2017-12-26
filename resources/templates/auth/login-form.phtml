@@ -1,0 +1,39 @@
+<?php $this->layout('layout') ?>
+
+<?php $this->start('body') ?>
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-md-6">
+
+            <div class="card">
+                <div class="card-header">Login</div>
+
+                <form method="post" action="<?= url('auth.login') ?>">
+                    <div class="card-body">
+
+                        <?= dump($errors ?? null); ?>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" name="email" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" name="senha" id="senha" class="form-control">
+                        </div>
+
+                        <div class="form-group pt-3">
+                            <button class="btn btn-primary btn-block" type="submit">Entrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php $this->stop('body') ?>

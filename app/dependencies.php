@@ -26,8 +26,8 @@ $container['logger'] = function () {
     return $logger;
 };
 
-$container['auth.provider'] = function() {
-    return new \App\Auth\Providers\EloquentProvider;
+$container['flash'] = function ($container) {
+    return new \Slim\Flash\Messages;
 };
 
 $container['auth.storage'] = function() {
@@ -35,18 +35,19 @@ $container['auth.storage'] = function() {
 };
 
 $container['auth'] = function () use ($container) {
-    return new \App\Auth\Authenticator($container['auth.provider'], $container['auth.storage']);
+    return new \App\Core\AuthAuth\Authenticator($container['auth.provider'], $container['auth.storage']);
 };
 
-$container['db'] = function () {
-    $capsule = new \Illuminate\Database\Capsule\Manager;
-    $capsule->addConnection(config('db'));
-    $capsule->setAsGlobal();
-
-    return $capsule;
+//repositories
+$container['UsersRepository'] = function ($container) {
+    return new \App\Db\UsersRepository(\App\Db\Connection\ConnectionFactory::make());
 };
 
 //controllers
 $container['AuthController'] = function () use ($container) {
     return new \App\Controllers\Auth\AuthController($container['auth']);
+};
+
+$container['RegistrationController'] = function ($container) {
+    return new \App\Controllers\Auth\RegistrationController($container['UsersRepository']);
 };

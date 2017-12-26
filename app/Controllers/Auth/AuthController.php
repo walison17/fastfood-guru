@@ -4,7 +4,7 @@ namespace App\Controllers\Auth;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use App\Auth\Authenticator;
+use App\Core\AuthAuth\Authenticator;
 
 class AuthController 
 {
@@ -26,9 +26,8 @@ class AuthController
      */
     public function index(Request $request, Response $response, $args)
     {
-        die('login.index');
+    
     }
-
     /**
      * faz login do usuário
      *
@@ -39,7 +38,9 @@ class AuthController
      */
     public function login(Request $request, Response $response, $args)
     {
+        $this->authenticator->authenticate($request->getParam('username'), $request->getParam('password'));
 
+        return \redirect('home');
     }
 
     /**
@@ -52,6 +53,8 @@ class AuthController
      */
     public function logout(Request $request, Response $response, $args)
     {
+        $this->authenticator->logout();
 
+        return \redirect('home');
     }
 }

@@ -1,6 +1,6 @@
 <?php 
 
-use App\Auth\Authenticator;
+use App\Core\AuthAuth\Authenticator;
 use PHPUnit\Framework\TestCase;
 
 class AuthenticatorTest extends TestCase
@@ -8,8 +8,8 @@ class AuthenticatorTest extends TestCase
     public function testAuthenticate()
     {
         $storage = \Mockery::mock('\App\Support\StorageInterface'); 
-        $provider = \Mockery::mock('\App\Auth\AuthProviderInterface');
-        $user = \Mockery::mock('\App\Auth\AuthInterface');
+        $provider = \Mockery::mock('\App\Core\AuthAuth\AuthProviderInterface');
+        $user = \Mockery::mock('\App\Core\AuthAuth\AuthInterface');
 
         $authenticator = new Authenticator($provider, $storage);
 
@@ -31,8 +31,8 @@ class AuthenticatorTest extends TestCase
     public function testWhenUserIsAuthenticated()
     {
         $storage = \Mockery::mock('\App\Support\StorageInterface'); 
-        $provider = \Mockery::mock('\App\Auth\AuthProviderInterface');
-        $user = \Mockery::mock('\App\Auth\AuthInterface');
+        $provider = \Mockery::mock('\App\Core\AuthAuth\AuthProviderInterface');
+        $user = \Mockery::mock('\App\Core\AuthAuth\AuthInterface');
 
         $storage->shouldReceive('exists')->andReturnTrue();
 
@@ -44,8 +44,8 @@ class AuthenticatorTest extends TestCase
     public function testWhenUserIsNotAuthenticated()
     {
         $storage = \Mockery::mock('\App\Support\StorageInterface'); 
-        $provider = \Mockery::mock('\App\Auth\AuthProviderInterface');
-        $user = \Mockery::mock('\App\Auth\AuthInterface');
+        $provider = \Mockery::mock('\App\Core\AuthAuth\AuthProviderInterface');
+        $user = \Mockery::mock('\App\Core\AuthAuth\AuthInterface');
 
         $storage->shouldReceive('exists')->andReturnFalse();
 
@@ -57,8 +57,8 @@ class AuthenticatorTest extends TestCase
     public function testGetTheActiveUser()
     {
         $storage = \Mockery::mock('\App\Support\StorageInterface'); 
-        $provider = \Mockery::mock('\App\Auth\AuthProviderInterface');
-        $user = \Mockery::mock('\App\Auth\AuthInterface');
+        $provider = \Mockery::mock('\App\Core\AuthAuth\AuthProviderInterface');
+        $user = \Mockery::mock('\App\Core\AuthAuth\AuthInterface');
 
         $authenticator = new Authenticator($provider, $storage);
 
@@ -76,7 +76,7 @@ class AuthenticatorTest extends TestCase
         $storage = \Mockery::spy('\App\Support\StorageInterface'); 
 
         /** @var \Mockery\MockInterface */
-        $provider = \Mockery::mock('\App\Auth\AuthProviderInterface');
+        $provider = \Mockery::mock('\App\Core\AuthAuth\AuthProviderInterface');
 
         $authenticator = new Authenticator($provider, $storage);
 
