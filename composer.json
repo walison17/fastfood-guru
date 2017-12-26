@@ -16,16 +16,14 @@
         "slim/slim": "^3.1",
         "monolog/monolog": "^1.17",
         "tightenco/collect": "^5.5",
-        "slim/twig-view": "^2.3",
-        "symfony/var-dumper": "^3.3",
         "projek-xyz/slim-plates": "^0.2.2",
         "oscarotero/psr7-middlewares": "^3.21",
         "zeuxisoo/slim-whoops": "^0.6.1",
-        "illuminate/database": "^5.5",
         "respect/validation": "^1.1",
         "slim/flash": "^0.4.0"
     },
     "require-dev": {
+        "symfony/var-dumper": "^3.3",
         "phpspec/phpspec": "^4.2",
         "mockery/mockery": "^1.0",
         "phpunit/phpunit": "^6.5"
