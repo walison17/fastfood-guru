@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Core;
+namespace App\Domain;
 
 abstract class Entity
 {
@@ -14,5 +14,10 @@ abstract class Entity
     public function setId(int $id)
     {
         $this->id = $id;
+    }
+
+    public function equals(Entity $other)
+    {
+        return $this->id == $other->getId();
     }
 }

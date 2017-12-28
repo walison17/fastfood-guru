@@ -6,7 +6,7 @@
     <div class="row justify-content-center mt-5">
         <div class="col-12 col-sm-6">
             <div class="card">
-                <form name="register" method="post" action="<?= url('reg.register') ?>">
+                <form name="registration" method="post" action="<?= url('reg.register') ?>">
                     <div class="card-header">Cadastro</div>
 
                     <div class="card-body pb-0">
@@ -49,6 +49,8 @@
                                         <?= errors()->getFirst('cep') ?>
                                     </div>
                                 <?php endif ?>
+                                <input type="hidden" name="city" value="">
+                                <input type="hidden" name="state" value="">
                             </div>
                         </div>
 
@@ -81,3 +83,20 @@
 </div>
 
 <?php $this->stop('body') ?>
+
+<?php $this->start('scripts') ?>
+    <script>
+        const cep = document.querySelector('input[name="cep"]')
+        const city = document.querySelector('input[name="city"]')
+        const state = document.querySelector('input[name="state"]')
+        
+        cep.addEventListener('keypress', () => {
+                fetch(`https://viacep.com.br/ws/${cep.value}/json/`)
+                .then(res => res.json())
+                .then(({ localidade, uf }) => {
+                    state.value = uf,
+                    city.value = localidade
+                })
+        })
+    </script>
+<?php $this->stop('scripts') ?> 

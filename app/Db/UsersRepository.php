@@ -2,9 +2,10 @@
 
 namespace App\Db;
 
-use App\Users\User;
-use App\Users\UsersRepositoryInterface;
+use App\Domain\User\User;
+use App\Domain\User\Photo;
 use App\Core\Auth\AuthRepositoryInterface;
+use App\Domain\User\UsersRepositoryInterface;
 
 class UsersRepository extends Repository implements UsersRepositoryInterface, AuthRepositoryInterface
 {
@@ -22,11 +23,7 @@ class UsersRepository extends Repository implements UsersRepositoryInterface, Au
 
         $rowValues = $sttm->fetch(\PDO::FETCH_ASSOC);
 
-        if (! is_array($rowValues)) {
-            return null;
-        }
-
-        return $this->hydrate($rowValues);
+        return $rowValues ? $this->hydrate($rowValues) : null;
     }
 
     /**
@@ -50,32 +47,28 @@ class UsersRepository extends Repository implements UsersRepositoryInterface, Au
         
         $rowValues = $sttm->fetch(\PDO::FETCH_ASSOC);
 
-        return ! empty($rowValues) ? $this->hydrate($rowValues) : null;
+        return $rowValues ? $this->hydrate($rowValues) : null;
     }   
 
+    /**
+     * Adiciona ou atualiza um usuário
+     *
+     * @param User $user
+     * @return void
+     */
     public function save(User $user)
     {
-        $query = 'INSERT INTO users (email, name, password, cep) VALUES (:email, :name, :password, :cep)';
-
-        try {
-            $sttm = $this->connection->prepare($query);
-            $sttm->bindValue(':email', $user->getEmail());
-            $sttm->bindValue(':name', $user->getName());
-            $sttm->bindValue(':cep', $user->getCep());
-            $sttm->bindValue(':password', $user->getPassword());
-
-            $sttm->execute();
-        } catch (\PDOException $e) {
-        }
-
-        $user->setId($this->connection->lastInsertId());
-        
-        return $user;
+        $this->hasUser($user) ? $this->update($user) : $this->insert($user);
     }
 
+    /**
+     * Retorna todos os usuários
+     *
+     * @return Users[]
+     */
     public function getAll()
     {
-        $query = 'SELECT * FROM users';
+        $query = 'SELECT * FROM users WHERE deleted_at IS NULL';
 
         try {
             $sttm = $this->connection->prepare($query);
@@ -90,6 +83,67 @@ class UsersRepository extends Repository implements UsersRepositoryInterface, Au
         }, $sttm->fetchAll(\PDO::FETCH_ASSOC)); 
     }
 
+    /**
+     * Verifica se o usuário já existe 
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function hasUser(User $user)
+    {
+        return ! is_null($this->getById($user->getId()));
+    }
+
+    private function insert(User $user)
+    {
+        $query = 'INSERT INTO users 
+            (email, name, password, photo_path, username) 
+            VALUES (:email, :name, :password, :photo_path, :username)';
+
+        try {
+            $sttm = $this->connection->prepare($query);
+            $sttm->bindValue(':email', $user->getEmail());
+            $sttm->bindValue(':name', $user->getName());
+            $sttm->bindValue(':password', $user->getPassword());
+            $sttm->bindValue(':photo_path', $user->getPhoto()->getFilename());
+            $sttm->bindValue(':username', $user->getUsername());
+
+            $sttm->execute();
+        } catch (\PDOException $e) {
+        }
+
+        $user->setId($this->connection->lastInsertId());
+    }
+
+    /**
+     * Atualiza um usuário
+     *
+     * @return void
+     */
+    private function update(User $user)
+    {
+        $query = 'UPDATE users 
+            SET email = :email, 
+                name = :name, 
+                password = :password, 
+                photo_path = :photo_path,
+                updated_at = CURRENT_TIMESTAMP()
+            WHERE id = :id';
+
+        try {
+            $sttm = $this->connection->prepare($query);
+            $sttm->bindValue(':id', $user->getId());
+            $sttm->bindValue(':name', $user->getName());
+            $sttm->bindValue(':email', $user->getEmail());
+            $sttm->bindValue(':password', $user->getPassword());
+            $sttm->bindValue(':photo_path', $user->getPhoto()->getFilename());
+        
+            $sttm->execute();
+        } catch (\PDOException $e) {
+            //
+        }
+    }
+
     private function hydrate(array $values)
     {
         $user = new User;
@@ -98,6 +152,8 @@ class UsersRepository extends Repository implements UsersRepositoryInterface, Au
         $user->setName($values['name']);
         $user->setCep($values['cep']);
         $user->setPassword($values['password']);
+        $user->setPhoto(new Photo($values['photo_path']));
+        $user->setUsername($values['username']);
 
         return $user;
     }

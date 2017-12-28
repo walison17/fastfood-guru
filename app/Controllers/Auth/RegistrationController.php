@@ -7,7 +7,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Core\Validation\Validator;
 use Respect\Validation\Validator as v;
-use App\Users\UsersRepositoryInterface;
+use App\Domain\User\UsersRepositoryInterface;
 
 class RegistrationController
 {

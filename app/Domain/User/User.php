@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Users;
+namespace App\Domain\User;
 
-use App\Core\Entity;
+use App\Domain\Entity;
 use App\Core\Auth\Authenticable;
 
 class User extends Entity implements Authenticable
@@ -11,6 +11,9 @@ class User extends Entity implements Authenticable
     private $name;
     private $cep;
     private $password;
+    private $location;
+    private $photo;
+    private $username;
 
     public function getEmail()
     {
@@ -36,7 +39,7 @@ class User extends Entity implements Authenticable
         return $this;
     }
 
-    public function setCep($cep)
+    public function setCep(?string $cep)
     {
         $this->cep = $cep; 
 
@@ -60,13 +63,44 @@ class User extends Entity implements Authenticable
         return $this;
     }
 
-    public function toArray()
+    public function getLocation()
     {
-        return [
-            'email' => $this->email,
-            'name' => $this->name, 
-            'password' => $this->password,
-            'cep' => $this->cep
-        ];
+        return $this->location;
+    }
+
+    public function setLocation(Location $location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Retorna a foto de usuário
+     *
+     * @return \App\Domain\User\Photo
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(Photo $photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
     }
 }

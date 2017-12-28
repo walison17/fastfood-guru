@@ -244,9 +244,35 @@ function old(string $field)
     return $oldInputs[$field] ?? null;
 }
 
-function storage_path(string $filename = null)
+function storage_path(string $name = null)
 {
-    $path = config('storage_path');
+    if ($name) {
+        $path = config('storage_path') . '/' . $name;
+        
+        if (! file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
 
-    return $filename ? $path . $filename : $path;
+        return $path;
+    }
+
+    return config('storage_path');
+}
+
+function move_file(string $directory, \Slim\Http\UploadedFile $uploadedFile)
+{
+    $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+    $basename = bin2hex(random_bytes(8));
+    $filename = sprintf('%s.%0.8s', $basename, $extension);
+
+    $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
+
+    return $filename;
+}
+
+function static_file(string $filename, string $folder = null) 
+{
+    $base = basename(storage_path());
+
+    return $folder ? "{$base}/{$folder}/{$filename}" : "{$base}/{$filename}";
 }

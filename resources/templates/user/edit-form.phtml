@@ -1,0 +1,16 @@
+<?php $this->layout('layout') ?> 
+
+<?php $this->start('body') ?> 
+
+<div class="container">
+    <div class="row justify-center mt-5">
+        <form method="post" action="<?= url('user.uploadPhoto') ?>" name="edit" enctype="multipart/form-data">
+            <div class="form-group">
+                <input class="form-control" type="file" name="photo">
+                <button class="btn btn-primary" type="submit">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<?php $this->stop('body') ?> 
