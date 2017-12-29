@@ -35,7 +35,7 @@ $container['auth.storage'] = function() {
 };
 
 $container['auth'] = function () use ($container) {
-    return new \App\Core\AuthAuth\Authenticator($container['auth.provider'], $container['auth.storage']);
+    return new \App\Core\Auth\Authenticator($container['UsersRepository'], $container['auth.storage']);
 };
 
 //repositories

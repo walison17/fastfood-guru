@@ -1,11 +1,11 @@
 <?php
 
 //auth routes
-$app->get('/auth/login', 'AuthController:index')->setName('auth.index');
+$app->get('/auth/login', 'AuthController:showForm')->setName('auth.showForm')->add(new \App\Middlewares\GuestMiddleware);
+$app->get('/auth/logout', 'AuthController:logout')->setName('auth.logout')->add(new \App\Middlewares\AuthMiddleware);
 $app->post('/auth/login', 'AuthController:login')->setName('auth.login');
-$app->get('/auth/logout', 'AuthController:logout')->setName('auth.logout');
 
-$app->get('/cadastro', 'RegistrationController:showForm')->setName('reg.showForm');
+$app->get('/cadastro', 'RegistrationController:showForm')->setName('reg.showForm')->add(new \App\Middlewares\GuestMiddleware);
 $app->post('/cadastrar', 'RegistrationController:register')->setName('reg.register');
 
 $app->get('/edit', 'UserPhotoController:index')->setName('user.edit');

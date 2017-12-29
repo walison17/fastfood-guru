@@ -199,6 +199,20 @@ function get_flash($key, string $default = null)
 }
 
 /**
+ * Adiciona uma mensagem de erro na sessão
+ *
+ * @param string $field
+ * @param string $message
+ * @return void
+ */
+function flash_error(string $field, string $message)
+{
+    flash_errors([
+        $field => [$message]
+    ]);
+}
+
+/**
  * Adiciona as mensagens de erro na sessão 
  *
  * @param array $errors

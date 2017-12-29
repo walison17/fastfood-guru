@@ -4,7 +4,11 @@ namespace App\Controllers\Auth;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use App\Core\AuthAuth\Authenticator;
+use App\Core\Auth\Authenticator;
+use App\Core\Validation\Validator;
+use Respect\Validation\Validator as v;
+use App\Core\Auth\Exceptions\UserDoesntExistsException;
+use App\Core\Auth\Exceptions\PasswordDontMatchException;
 
 class AuthController 
 {
@@ -24,9 +28,9 @@ class AuthController
      * @param mixed $args
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function index(Request $request, Response $response, $args)
+    public function showForm(Request $request, Response $response, $args)
     {
-    
+        return view('auth/login-form');
     }
     /**
      * faz login do usuário
@@ -38,7 +42,39 @@ class AuthController
      */
     public function login(Request $request, Response $response, $args)
     {
-        $this->authenticator->authenticate($request->getParam('username'), $request->getParam('password'));
+        $validator = new Validator;
+
+        $validator->validate(
+            [
+                'email' => $request->getParam('email'),
+                'password' => $request->getParam('password')
+            ],
+            [
+                'email' => v::notOptional()->email(),
+                'password' => v::notOptional()
+            ]
+        );
+
+        if ($validator->fail()) {
+            flash_errors($validator->getMessages());
+
+            return redirect('auth.showForm');
+        }
+
+        try {
+            $this->authenticator->authenticate(
+                $request->getParam('email'), 
+                $request->getParam('password')
+            );
+        } catch (UserDoesntExistsException $ex) {
+            flash_error('email','Email não cadastrado');
+
+            return redirect('auth.showForm');
+        } catch (PasswordDontMatchException $ex) {
+            flash_error('password', 'Senha incorreta');
+
+            return redirect('auth.showForm');
+        }
 
         return \redirect('home');
     }

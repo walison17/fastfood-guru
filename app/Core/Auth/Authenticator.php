@@ -5,6 +5,7 @@ namespace App\Core\Auth;
 use App\Core\Auth\Authenticable;
 use App\Support\StorageInterface;
 use App\Core\Auth\AuthRepositoryInterface;
+use App\Core\Auth\Exceptions\UserDoesntExistsException;
 use App\Core\Auth\Exceptions\PasswordDontMatchException;
 
 class Authenticator
@@ -26,13 +27,20 @@ class Authenticator
     /**
      * Tenta autenticar o usuário através das credenciais informadas 
      *
-     * @param array $credentials
-     * @return void
+     * @param string $email
+     * @param string $password
+     * @throws \App\Core\Auth\Exceptions\UserDoesntExistsException
+     * @throws \App\Core\Auth\Exceptions\PasswordDontMatchException
+     * @return Authenticable
      */
-    public function authenticate(string $email, string $password)
+    public function authenticate(string $email, string $password) : Authenticable
     {
         /** @var AuthenticableInterface */
         $user = $this->repository->getByEmail($email);
+
+        if (! $user) {
+            throw new UserDoesntExistsException;
+        }
 
         if (! password_verify($password, $user->getPassword())) {
             throw new PasswordDontMatchException;
@@ -46,13 +54,11 @@ class Authenticator
     /**
      * Retorna o usuário ativo 
      *
-     * @return AuthenticableInterface|null
+     * @return Authenticable|null
      */
     public function getCurrentUser()
     {
-        if (! $this->isAuthenticated()) {
-            return null;
-        }
+        if (! $this->check()) return null;
         
         $id = $this->storage->get(self::STORAGE_KEY); 
 
@@ -64,7 +70,7 @@ class Authenticator
      *
      * @return boolean
      */
-    public function isAuthenticated() 
+    public function check() : bool
     {
         return $this->storage->exists(self::STORAGE_KEY);
     }
@@ -74,7 +80,7 @@ class Authenticator
      *
      * @return void
      */
-    public function logout()
+    public function logout() : void
     {
         $this->storage->remove(self::STORAGE_KEY);
     }
