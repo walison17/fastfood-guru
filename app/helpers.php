@@ -104,7 +104,7 @@ if (! function_exists('asset'))
     {   
         $webfiles = basename(config('webfiles'));
 
-        return "{$webfiles}/{$filename}";
+        return "/{$webfiles}/{$filename}";
     }
 }
 
