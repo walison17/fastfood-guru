@@ -2,12 +2,12 @@
 
 if (! function_exists('app')) {
     /**
-     * acessa a dependencia do container
+     * Acessa dependencias do container
      *
-     * @param string $dependency
+     * @param string $dependendcy
      * @return mixed
      */
-    function app($dependency)
+    function app(string $dependency)
     {
         /** @var Container */
         $container = App\Core\Container::instance();
@@ -207,9 +207,11 @@ function get_flash($key, string $default = null)
  */
 function flash_error(string $field, string $message)
 {
-    flash_errors([
-        $field => [$message]
-    ]);
+    flash_errors(
+        new \App\Core\Validation\ErrorMessages([
+            $field => [$message]
+        ])
+    );
 }
 
 /**

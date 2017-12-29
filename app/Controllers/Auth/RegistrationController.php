@@ -2,9 +2,9 @@
 
 namespace App\Controllers\Auth;
 
-use App\Users\User;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use App\Domain\User\User;
 use App\Core\Validation\Validator;
 use Respect\Validation\Validator as v;
 use App\Domain\User\UsersRepositoryInterface;
@@ -28,25 +28,17 @@ class RegistrationController
     {
         $validator = new Validator;
 
-        $input = [
-            'email' => $request->getParam('email'),
-            'name' => $request->getParam('nome'),
-            'cep' => $request->getParam('cep'),
-            'password' => $request->getParam('senha'),
-            'password_confirmation' => $request->getParam('senha_confirmacao')
-        ]; 
-
         $rules = [
+            // 'username' => v::notOptional()->noWhitespace()->usernameAvailable(),
             'email' => v::notOptional()->email()->emailAvailable(),
             'name' => v::notOptional(),
-            'cep' => v::notOptional(),
             'password' => v::notOptional()
                 ->alnum()
                 ->noWhitespace()
                 ->confirmed($request->getParam('senha_confirmacao')),
         ];
 
-        $validator->validate($input, $rules);
+        $validator->validate($request->getParams(), $rules);
 
         if ($validator->fail()) {
             flash_errors($validator->getMessages());
@@ -55,9 +47,9 @@ class RegistrationController
         }
 
         $user = new User;
-        $user->setEmail($request->getParam('email'));
         $user->setName($request->getParam('nome'));
-        $user->setCep($request->getParam('cep'));
+        $user->setUsername($request->getParam('username'));
+        $user->setEmail($request->getParam('email'));
         $user->setPassword(password_hash($request->getParam('senha'), PASSWORD_BCRYPT)) ;
 
         $this->repository->save($user);

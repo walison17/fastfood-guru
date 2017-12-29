@@ -13,15 +13,23 @@
                 </div>
                 <div class="col-md-6 col-sm-12 col-12">
                     <ul class="pull-right">
+                        <?php if (! auth()->check()) : ?> 
                         <li>
                             <a href="<?= url('auth.showForm') ?>"><i class="fa fa-sign-in"></i>Acessar</a>
                         </li>
                         <li>
                             <a href="<?= url('reg.showForm') ?>" class="btn btn-outline-secondary">
-                                <i class="fa fa-user-plus"></i>
-                                Criar Conta
+                                <i class="fa fa-user-plus"></i>Criar Conta
                             </a>
                         </li>
+                        <?php endif ?>
+                        <?php if (auth()->check()) : ?> 
+                        <li>
+                            <a href="<?= url('auth.logout') ?>">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>Sair
+                            </a>
+                        </li>
+                        <?php endif ?> 
                     </ul>
                 </div>
             </div>
