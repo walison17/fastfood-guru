@@ -2,12 +2,14 @@
 
 namespace App\Core\Validation;
 
-class ErrorMessages
+use Serializable, JsonSerializable;
+
+class ErrorMessages implements Serializable, JsonSerializable
 {
     /** @var string[] */
     private $messages;
 
-    public function __construct(array $messages)
+    public function __construct(array $messages = [])
     {
         $this->messages = $messages;
     }
@@ -50,6 +52,32 @@ class ErrorMessages
      * @return array
      */
     public function getAll()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * Serializa as mensagens para armazenamento
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize($this->messages);
+    }
+
+    /**
+     * Deserializa as mensagens armazenadas 
+     *
+     * @param array $messages
+     * @return void
+     */
+    public function unserialize($messages) 
+    {
+        $this->messages = unserialize($messages);
+    }
+
+    public function jsonSerialize()
     {
         return $this->messages;
     }

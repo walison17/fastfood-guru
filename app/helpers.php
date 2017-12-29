@@ -215,12 +215,12 @@ function flash_error(string $field, string $message)
 /**
  * Adiciona as mensagens de erro na sessão 
  *
- * @param array $errors
+ * @param \App\Core\Validation\ErrorMessages $errors
  * @return void
  */
-function flash_errors(array $errors) 
+function flash_errors(\App\Core\Validation\ErrorMessages $errors) 
 {
-    app('flash')->addMessage('errors', $errors);
+    app('flash')->addMessage('errors', serialize($errors));
 }
 
 /**
@@ -230,9 +230,9 @@ function flash_errors(array $errors)
  */
 function errors()
 {
-    $messages = app('flash')->getFirstMessage('errors');
+    $messages = unserialize(app('flash')->getFirstMessage('errors'));
 
-    return new \App\Core\Validation\ErrorMessages($messages ?? []);
+    return $messages ?: new \App\Core\Validation\ErrorMessages;
 }
 
 /**

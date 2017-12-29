@@ -2,6 +2,7 @@
 
 namespace App\Core\Validation;
 
+use App\Core\Validation\ErrorMessages;
 use Respect\Validation\Exceptions\NestedValidationException;
 
 class Validator
@@ -9,9 +10,9 @@ class Validator
     private $errors = []; 
 
     /**
-     * Executa a validação dos campos
+     * {@inheritDoc}
      *
-     * @return $this
+     * @return void
      */
     public function validate(array $input, array $rules, array $customMessages = [])
     {
@@ -23,12 +24,10 @@ class Validator
                 $this->errors[$field] = $e->getMessages();
             }
         }
-
-        return $this;
     }
 
     /**
-     * Verifica se a validação falhou
+     * {@inheritDoc}
      *
      * @return bool 
      */
@@ -38,13 +37,13 @@ class Validator
     }
 
     /**
-     * Retorna todas as mensagens de erro
+     * {@inheritDoc}
      *
-     * @return array
+     * @return \App\Core\Validation\ErrorMessages
      */
     public function getMessages()
     {
-        return $this->errors;
+        return new ErrorMessages($this->errors);
     }
 
     /**
