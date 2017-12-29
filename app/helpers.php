@@ -131,22 +131,6 @@ if (! function_exists('month_abrr'))
     }
 }
 
-if (! function_exists('log_info')) 
-{
-    function log_info(string $message, array $context = [])
-    {
-        app('logger')->info($message, $context);
-    }
-}
-
-if (! function_exists('log_error')) 
-{
-    function log_error(string $message, array $context = [])
-    {
-        app('logger')->error($message, $context);
-    }
-}
-
 if (! function_exists('log_debug')) 
 {
     /**
@@ -192,7 +176,7 @@ if (! function_exists('config'))
 }
 
 /**
- * Adiciona uma flash message na sessão 
+ * Adiciona uma mensagem (flash) para ser exibida apenas na próxima requisição  
  *
  * @param mixed $key
  * @param string $message
@@ -204,14 +188,14 @@ function flash($key, string $message)
 }
 
 /**
- * Retorna uma flash message armazenada
+ * Retorna uma mensagem flash que foi armazenada
  *
  * @param mixed $key
  * @return string
  */
-function get_flash($key)
+function get_flash($key, string $default = null)
 {
-    return app('flash')->getFirstMessage($key);
+    return app('flash')->getFirstMessage($key) ?? $default;
 }
 
 /**
@@ -237,6 +221,12 @@ function errors()
     return new \App\Core\Validation\ErrorMessages($messages ?? []);
 }
 
+/**
+ * Recupera o valor de um campo do formulário armazenado na sessão
+ *
+ * @param string $field campo do formulário
+ * @return string
+ */
 function old(string $field)
 {
     $oldInputs = get_flash('old_input');
@@ -244,14 +234,18 @@ function old(string $field)
     return $oldInputs[$field] ?? null;
 }
 
+/**
+ * Retorna o diretório/caminho de armazenamento
+ *
+ * @param string $name
+ * @return string
+ */
 function storage_path(string $name = null)
 {
     if ($name) {
         $path = config('storage_path') . '/' . $name;
         
-        if (! file_exists($path)) {
-            mkdir($path, 0777, true);
-        }
+        if (! file_exists($path)) mkdir($path, 0777, true);
 
         return $path;
     }
@@ -259,6 +253,13 @@ function storage_path(string $name = null)
     return config('storage_path');
 }
 
+/**
+ * Move um arquivo para o diretório informado
+ *
+ * @param string $directory
+ * @param \Slim\Http\UploadedFile $uploadedFile
+ * @return string
+ */
 function move_file(string $directory, \Slim\Http\UploadedFile $uploadedFile)
 {
     $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
@@ -270,6 +271,13 @@ function move_file(string $directory, \Slim\Http\UploadedFile $uploadedFile)
     return $filename;
 }
 
+/**
+ * Retorna o caminho de um arquivo armazenado 
+ *
+ * @param string $filename
+ * @param string $folder
+ * @return string
+ */
 function static_file(string $filename, string $folder = null) 
 {
     $base = basename(storage_path());
