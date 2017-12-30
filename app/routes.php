@@ -13,5 +13,6 @@ $app->post('/upload-photo', 'UserPhotoController:store')->setName('user.uploadPh
 
 //get routes
 $app->get('/', '\App\Controllers\PagesController:index')->setName('home');
+$app->get('/profile', '\App\Controllers\PagesController:profile')->setName('profile');
 
 $app->get('/storage/{filename}', 'App\Controller\StorageController:show')->setName('storage.show');

@@ -41,8 +41,7 @@ class UserPhotoController
 
         $this->repository->save($user);
 
-        flash('Sua foto de perfil foi atualizada :)');
+        return json(['message' => 'Sua foto de perfil foi atualizada :)']);
 
-        return redirect('home');
     }
 }

@@ -18,6 +18,14 @@ body {
     margin-top: 30px !important;
 }
 
+main{
+    min-height: 600px;
+}
+
+.padding-main{
+    padding-top: 60px;
+}
+
 header {
     position: fixed;
     top: 0px;
@@ -360,5 +368,158 @@ footer {
     .no-touch &:hover {
         background-color: rgba(#1c0f0f, 1);
         opacity: 1;
+    }
+}
+
+.sessao-perfil {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    .panel {
+        background: #fff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+    .well {
+        margin-top: -20px;
+        background-color: #31b0d5;
+        border: 2px solid #2da5c7;
+        text-align: center;
+        font-size: 25px;
+        padding: 15px;
+        border-radius: 0px !important;
+        float: left;
+        transition: all 0.3s ease-in-out;
+        color: #fff;
+        i {
+            margin-right: 6px;
+        }
+    }
+    .bg_blur {
+        height: 300px;
+        background-size: cover !important;
+        background-position: center !important;
+    }
+    #btn-muda-foto {
+        position: absolute;
+        top: 27px;
+        left: -81px;
+        background: #31b0d5;
+        border-radius: 0px;
+        color: #fff;
+        transition: all 0.3s !important;
+        i {
+            margin-right: 6px;
+        }
+        &:hover,
+        &:focus {
+            background: #2da5c7;
+        }
+        @media screen and (max-width: 780px) {
+            left: 50% !important;
+            top: -150px !important;
+            transform: translateX(-50%) !important;
+        }
+    }
+    .follow_btn {
+        text-decoration: none;
+        position: absolute;
+        left: 16%;
+        top: 30.5%;
+        width: auto;
+        min-width: 40%;
+        height: 15%;
+        background-color: #31b0d5;
+        padding: 10px;
+        padding-top: 6px;
+        color: #fff;
+        text-align: center;
+        font-size: 17px;
+        border: 4px solid #31b0d5;
+        transition: all 0.3s ease-in-out;
+
+        &.new-post{
+            top : 54% !important;
+            @media screen and (max-width: 780px) {
+                left: 30% !important;
+                top: 30.5% !important;
+            }
+
+        }
+
+        @media screen and (max-width: 780px) {
+            left: 30% !important;
+            top: 10.5% !important;
+        }
+    }
+    .follow_btn:hover {
+        border: 4px solid rgba(255, 255, 255, 0.8);
+    }
+    .header {
+        color: #808080;
+        margin-left: 10%;
+        margin-top: 70px;
+        h2 {
+            font-size: 24px;
+        }
+        p{
+            font-weight: bold;
+        }
+    }
+    .picture {
+        height: 150px;
+        width: 150px;
+        position: absolute;
+        top: 75px;
+        left: -75px;
+        @media screen and (max-width: 780px) {
+            top: -93px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+        }
+    }
+    @media (max-width: 767px) {
+        .header {
+            text-align: center;
+            margin-left: -3% !important;
+            padding-bottom: 30px !important;
+        }
+        .nav {
+            margin-top: 30px;
+        }
+    }
+}
+
+.modal-novo-post {
+    .modal-title {
+        text-transform: uppercase;
+        font-size: 20px;
+        text-align: center;
+        margin: 0px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+    label {
+        font-weight: bold;
+        color: #31b0d5;
+    }
+    input,
+    textarea {
+        &:focus {
+            border-color: #31b0d5 !important;
+        }
+    }
+    
+    .btn {
+        cursor: pointer;
+        background: #31b0d5;
+        color: #fff;
+        border-radius: 0px;
+        transition: all 0.3s ease-in-out;
+        &:hover,
+        &:focus {
+            background: #333 !important;
+        }
+        i {
+            margin-right: 6px;
+        }
     }
 }
