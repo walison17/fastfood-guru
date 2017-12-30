@@ -13,4 +13,12 @@ class PagesController{
         return view("home");    
     }
 
+    function profile(Request $request,Response $response){
+        if (auth()->check()){
+            return view("user/profile");
+        }else{
+            return redirect("home");
+        }    
+    }
+
 }

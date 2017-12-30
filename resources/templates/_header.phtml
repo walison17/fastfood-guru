@@ -1,4 +1,4 @@
-<header>
+<header class="<?= on_page("home") ? "" : "back-white" ?>">
 
     <div class="header-main">
 
@@ -6,7 +6,8 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12 col-12"> 
                     <ul class="pull-left">
-                        <?php for($i = 1;$i <= 3;$i++) : ?>
+                        <li><a href="<?= url("home") ?>">Home</a></li>
+                        <?php for($i = 1;$i <= 2;$i++) : ?>
                             <li><a href="http://">Menu</a></li>
                         <?php endfor ?>
                     </ul>
@@ -24,6 +25,9 @@
                         </li>
                         <?php endif ?>
                         <?php if (auth()->check()) : ?> 
+                        <li>
+                            <a href="<?= url('profile') ?>"><i class="fa fa-user"></i>Meu Perfil</a>
+                        </li>
                         <li>
                             <a href="<?= url('auth.logout') ?>">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>Sair

@@ -54,7 +54,7 @@ class RegistrationController
 
         $this->repository->save($user);
 
-        flash('success', 'Cadastro concluído');
+        flash('success', '<script>alert("Cadastro concluído")</script>');
 
         return redirect('home');
     }

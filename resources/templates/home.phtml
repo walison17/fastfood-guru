@@ -3,27 +3,52 @@
 
 <?=  get_flash('success') ?>
 
-<section id="banner" style="background : url('<?= asset('images/back-banner.jpg') ?>')">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-sm-12 col-12 m-t-3">
-                <form data-action="" class="form-ajax">
-                    <input type="text" class="form-control" placeholder="Busque locais">
-                    <button class="btn btn-info"><i class="fa fa-search"></i> Buscar</button>
-                </form>
+    <section id="banner" style="background : url('<?= asset('images/back-banner.jpg') ?>')">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12 col-12 m-t-3">
+                    <form data-action="" class="form-ajax">
+                        <input type="text" class="form-control" placeholder="Busque locais">
+                        <button class="btn btn-info">
+                            <i class="fa fa-search"></i> Buscar</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="content-botao-scroll">
-        <a href="#avaliacoes" class="btn-mostra-scroll desce-efeito"><span></span><span></span><span></span></a>
-    </div>
-</section>
+        <div class="content-botao-scroll">
+            <a href="#avaliacoes" class="btn-mostra-scroll desce-efeito">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+    </section>
 
-<section id="avaliacoes" class="padding-section padding-bottom">
-    <div class="container">
-        <?= $this->insert("_partials/_titulo",["titulo" => "Avaliações","descricao" => "Conheça algumas avaliações abaixo"]) ?>
-        <?= $this->insert("_partials/_lista-avaliacoes") ?>
-    </div>
-</section>
+    <section id="avaliacoes" class="padding-section padding-bottom">
+        <div class="container">
+            <?= $this->insert("_partials/_titulo",["titulo" => "Avaliações","descricao" => "Conheça algumas avaliações abaixo"]) ?>
+                <?= $this->insert("_partials/_lista-avaliacoes") ?>
+        </div>
+    </section>
 
-<?php $this->stop(); ?>
+    <?php $this->stop(); ?>
+
+    <?php $this->start("scripts") ?>
+    <script>
+        $(document).ready(function () {
+            if ($(window).scrollTop() > $("header").outerHeight()) {
+                $("header").addClass("back-white");
+            } else {
+                $("header").removeClass("back-white");
+            }
+
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > $("header").outerHeight()) {
+                    $("header").addClass("back-white");
+                } else {
+                    $("header").removeClass("back-white");
+                }
+            });
+        });
+    </script>
+    <?php $this->stop() ; ?>

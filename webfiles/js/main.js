@@ -1,19 +1,5 @@
 $(document).ready(function () {
 
-    if ($(window).scrollTop() > $("header").outerHeight()){
-        $("header").addClass("back-white");
-    }else{
-        $("header").removeClass("back-white");
-    }
-    
-    $(window).scroll(function (){
-        if ($(window).scrollTop() > $("header").outerHeight()){
-            $("header").addClass("back-white");
-        }else{
-            $("header").removeClass("back-white");
-        }
-    });
-
     $(".desce-efeito").click(function (event) {
         event.preventDefault();
         $('body,html').animate({

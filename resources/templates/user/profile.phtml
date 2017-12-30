@@ -1,0 +1,67 @@
+<?php $this->layout("layout") ?>
+<?php $this->start("body") ?>
+<section class="sessao-perfil">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row panel">
+                    <div class="col-md-4 bg_blur" style="background : url('<?= asset("images/back-perfil.png") ?>')">
+                        <a href="#" data-toggle="modal" data-target="#editar-perfil" class="follow_btn">Editar Perfil</a>
+                        <a href="#" class="follow_btn new-post">Nova Avaliação</a>
+                    </div>
+                    <div class="col-md-8 col-12">
+                        <?php if (auth()->getCurrentUser()->getPhoto()->getFileName() == null) : ?>
+                            <img src="<?= asset('images/user.png') ?>" class="img-thumbnail picture" />
+                        <?php else : ?>
+                            <img src="<?= auth()->getCurrentUser()->getPhoto() ?>" class="img-thumbnail picture" />
+                        <?php endif ?>
+                        <button type="button" id="btn-muda-foto" data-toggle="modal" data-target="#modal-foto" class="btn">
+                            <i class="fa fa-picture-o"></i>
+                            Alterar Imagem
+                        </button>
+                        <div class="header">
+                            <h2><?= auth()->getCurrentUser()->getName() ?></h2>
+                            <p><i class="fa fa-envelope mr-1"></i><?= auth()->getCurrentUser()->getEmail() ?></p>
+                            <p><i class="fa fa-map-marker mr-1"></i>Caruaru - PE</p>
+                        </div>
+                    </div>
+                </div>   
+                
+                <div class="row nav">    
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8 col-12" style="margin: 0px;padding: 0px;">
+                        <div class="col-md-4 col-4 well"><i class="fa fa-comments fa-lg"></i>1</div>
+                        <div class="col-md-4 col-4 well"><i class="fa fa-pencil-square-o fa-lg"></i> 1</div>
+                        <div class="col-md-4 col-4 well"><i class="fa fa-thumbs-up fa-lg"></i> 1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?= $this->insert("_partials/_modal-foto") ?>
+<?php $this->stop(); ?>
+
+<?php $this->start("scripts") ?>
+<script src="<?= asset("js/jquery.form.min.js") ?>"></script>
+<script>
+    $(document).ready(function () {
+        $("#form-foto").ajaxForm({
+            beforeSubmit: function (options) {
+            },
+
+            success: function (response) {
+                alert(response.message);
+                window.location.reload();
+            },
+
+            error: function (response) {
+                console.log("entrou aqui");
+                alert(response.message);
+
+            }
+
+        });
+    });
+</script>
+<?php $this->stop() ?>

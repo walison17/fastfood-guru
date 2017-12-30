@@ -1,14 +1,13 @@
 <?php $this->layout('layout') ?>
 
 <?php $this->start('body') ?>
-
+<section id="page-login" class="mt-5 mb-5">
 <div class="container">
-    <div class="row justify-content-center mt-5">
+    <?= $this->insert("_partials/_titulo",["titulo" => "Cadastro","descricao" => ""]) ?>
+    <div class="row justify-content-center mt-1">
         <div class="col-12 col-sm-6">
             <div class="card">
                 <form name="registration" method="post" action="<?= url('reg.register') ?>">
-                    <div class="card-header">Cadastro</div>
-
                     <div class="card-body pb-0">
                         <div class="form-row">
                             <div class="form-group col-12">
@@ -28,7 +27,7 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="nome">Nome</label>
-                                <input type="nome" id="nome" name="nome" value="<?= old('nome') ?>" 
+                                <input type="nome" id="name" name="name" value="<?= old('name') ?>" 
                                     class="form-control <?= errors()->has('name') ? 'is-invalid' : '' ?>
                                 ">
                                 <?php if (errors()->has('name')): ?> 
@@ -42,7 +41,7 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="cep">Cep</label>
-                                <input name="cep" type="text" value="<?= old('cep') ?>" id="cep" class="form-control <?= errors()->has('cep') ? 'is-invalid' : '' ?>">
+                                <input name="cep" type="text" value="<?= old('cep') ?>" id="cep" class="form-control mask-cep <?= errors()->has('cep') ? 'is-invalid' : '' ?>">
 
                                 <?php if (errors()->has('cep')): ?> 
                                     <div class="invalid-feedback">
@@ -57,7 +56,7 @@
                         <div class="form-row">
                             <div class="form-group col-12 col-md-6">
                                 <label for="senha">Senha</label>
-                                <input type="password" id="senha" name="senha" class="form-control <?= errors()->has('password') ? 'is-invalid' : '' ?>">
+                                <input type="password" id="password" name="password" class="form-control <?= errors()->has('password') ? 'is-invalid' : '' ?>">
                                 <?php if (errors()->has('password')): ?>
                                     <div class="invalid-feedback">
                                         <?= errors()->getFirst('password') ?>
@@ -67,7 +66,7 @@
                          
                             <div class="form-group col-12 col-md-6">
                                 <label for="senha_confirmacao">Confirmar senha</label>
-                                <input type="password" id="senha_confirmacao" name="senha_confirmacao" class="form-control <?= errors()->has('password') ? 'is-invalid' : '' ?>">
+                                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control <?= errors()->has('password') ? 'is-invalid' : '' ?>">
                             </div>
                         </div>
 
@@ -81,22 +80,59 @@
         </div>
     </div>
 </div>
+</section>
 
 <?php $this->stop('body') ?>
 
 <?php $this->start('scripts') ?>
+<script src="<?= asset('js/jquery.mask.min.js') ?>"></script>
     <script>
-        const cep = document.querySelector('input[name="cep"]')
-        const city = document.querySelector('input[name="city"]')
-        const state = document.querySelector('input[name="state"]')
-        
-        cep.addEventListener('keypress', () => {
-                fetch(`https://viacep.com.br/ws/${cep.value}/json/`)
-                .then(res => res.json())
-                .then(({ localidade, uf }) => {
-                    state.value = uf,
-                    city.value = localidade
-                })
-        })
+        $(document).ready(function () {
+            $(".mask-cep").mask("99.999-999");
+            const cepElement = document.querySelector('input[name="cep"]')
+            const city = document.querySelector('input[name="city"]')
+            const state = document.querySelector('input[name="state"]')
+            
+            $(cepElement).blur(function () {
+                var cep = $(this).val().replace(/\D/g, '');
+                //Verifica se campo cep possui valor informado.
+                if (cep != "") {
+
+                    //Expressão regular para validar o CEP.
+                    var validacep = /^[0-9]{8}$/;
+
+                    //Valida o formato do CEP.
+                    if (validacep.test(cep)) {
+
+                        //Consulta o webservice viacep.com.br/
+                        $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                            if (!("erro" in dados)) {
+                                alert("CEP Válido :)");
+                                //Atualiza os campos com os valores da consulta.
+                                $(state).val(dados.uf);
+                                $(city).val(dados.localidade);
+
+                            }
+                            else {
+                                //CEP pesquisado não foi encontrado.
+                                $(cepElement).val("");
+                                alert("O CEP não foi encontrado :(");
+                            }
+                        });
+                    } //end if.
+                    else {
+                        //cep é inválido.
+                        $(cepElement).val("");
+                        alert("Formato de CEP inválido");
+                    }
+                } //end if.
+                else {
+                    $(cepElement).val("");
+                }
+
+            });
+
+        });
     </script>
 <?php $this->stop('scripts') ?> 
