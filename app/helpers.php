@@ -300,3 +300,26 @@ function static_file(string $filename, string $folder = null)
 
     return $folder ? "{$base}/{$folder}/{$filename}" : "{$base}/{$filename}";
 }
+
+/**
+ * Retorna a url da página atual 
+ *
+ * @return string
+ */
+function current_page()
+{
+    $uri = app('request')->getUri();
+
+    return "{$uri->getBasePath()}{$uri->getPath()}";
+}
+
+/**
+ * Verifica se a página atual é a mesma que a página da rota informada 
+ *
+ * @param string $route nome da rota 
+ * @return bool
+ */
+function on_page(string $route)
+{
+    return current_page() == url($route);
+}
