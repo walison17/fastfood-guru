@@ -35,7 +35,7 @@ class RegistrationController
             'password' => v::notOptional()
                 ->alnum()
                 ->noWhitespace()
-                ->confirmed($request->getParam('senha_confirmacao')),
+                ->confirmed($request->getParam('password_confirmation')),
         ];
 
         $validator->validate($request->getParams(), $rules);
@@ -47,10 +47,10 @@ class RegistrationController
         }
 
         $user = new User;
-        $user->setName($request->getParam('nome'));
-        $user->setUsername($request->getParam('username'));
+        $user->setName($request->getParam('name'));
+        // $user->setUsername($request->getParam('username'));
         $user->setEmail($request->getParam('email'));
-        $user->setPassword(password_hash($request->getParam('senha'), PASSWORD_BCRYPT)) ;
+        $user->setPassword(password_hash($request->getParam('password'), PASSWORD_BCRYPT)) ;
 
         $this->repository->save($user);
 

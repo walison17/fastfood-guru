@@ -20,6 +20,12 @@ class User extends Entity implements Authenticable
         return $this->email;
     }
 
+    /**
+     * Retorna e email do usuário
+     *
+     * @param string $email
+     * @return $this
+     */
     public function setEmail(string $email)
     {
         $this->email = $email;

@@ -14,6 +14,8 @@ abstract class Entity
     public function setId(int $id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function equals(Entity $other)
