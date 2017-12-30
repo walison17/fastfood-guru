@@ -5,7 +5,7 @@ return [
         'debug' => true,
 
         'whoops.editor' => 'vscode',
-
+        
         'displayErrorDetails' => true, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
 
@@ -31,6 +31,7 @@ return [
             'database' => 'test',
             'username' => 'root',
             'password' => 'root',
+            'charset' => 'utf8'
         ],
     ],
 ];

@@ -12,10 +12,11 @@ class ConnectionFactory
     {
         if (! isset(self::$connection)) {
             $dsn = sprintf(
-                '%s:host=%s;dbname=%s',
+                '%s:host=%s;dbname=%s;charset=%s',
                 config('db.driver'),
                 config('db.host'),
-                config('db.database')
+                config('db.database'),
+                config('db.charset')
             );
 
             self::$connection = new PDO($dsn, config('db.username'), config('db.password'), [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
