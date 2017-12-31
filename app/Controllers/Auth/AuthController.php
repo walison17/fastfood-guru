@@ -76,7 +76,9 @@ class AuthController
             return redirect('auth.showForm');
         }
 
-        return \redirect('home');
+        flash('success', 'bem-vindo ' . auth()->getCurrentUser()->getName());
+
+        return redirect_back();
     }
 
     /**

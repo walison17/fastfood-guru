@@ -18,6 +18,9 @@ if (! function_exists('app')) {
 
 if (! function_exists('auth'))
 {
+    /**
+     * @return \App\Core\Auth\Authenticator
+     */
     function auth()
     {
         return app('auth');
@@ -73,6 +76,21 @@ if (! function_exists('redirect'))
     function redirect(string $routeName, $statusCode = 302)
     {
         return app('response')->withRedirect(url($routeName), $statusCode);
+    }
+}
+
+if (! function_exists('redirect_back'))
+{
+    /**
+     * Redireciona para a última url acessada 
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    function redirect_back()
+    {
+        $lastUrl = get_flash('last_url');
+
+        return app('response')->withRedirect($lastUrl);
     }
 }
 
@@ -306,7 +324,7 @@ function static_file(string $filename, string $folder = null)
  *
  * @return string
  */
-function current_page()
+function current_url()
 {
     $uri = app('request')->getUri();
 
@@ -321,5 +339,5 @@ function current_page()
  */
 function on_page(string $route)
 {
-    return current_page() == url($route);
+    return current_url() == url($route);
 }
