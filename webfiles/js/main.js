@@ -1,5 +1,46 @@
 $(document).ready(function () {
 
+    $(".form-ajax").on('submit',function (event){
+        event.preventDefault();
+        let form = $(this);
+        let data = $(this).serializeArray();
+        let action = $(this).data("action");
+        
+        if (action === undefined || action == ""){
+            alert("Erro inesperado, recarregue a página e tente novamente");
+            return false;
+        } 
+
+        $(".loading-content").addClass("show"); //Adiciona Loading
+        $.ajax({
+            type: "POST",
+            url: action,
+            data: data,
+            dataType: "json",
+            success: function (response) {
+                switch (response.acao){
+                    case "redirect":
+                        alert(response.message);
+                        if (response.url != undefined && response.url != ""){
+                            window.location.href = response.url;
+                        }else{
+                            window.location.reload();
+                        }
+                        break;
+                    default:
+                        $(form).trigger("reset");
+                        $(".modal").modal("hide");
+                        alert(response.message);
+                }
+            },
+            error : function (response){
+                console.log(response);
+            }
+        }).always(function (){
+            $(".loading-content").removeClass("show"); //Remove Loading
+        });
+    });
+
     $(".desce-efeito").click(function (event) {
         event.preventDefault();
         $('body,html').animate({
