@@ -76,6 +76,20 @@ class Authenticator
     }
 
     /**
+     * Faz login do usuário
+     * 
+     * deve ser usado apenas para testes ou quando se tem certeza absoluta que o usuário 
+     * já possui cadastro
+     *
+     * @param Authenticable $user
+     * @return void
+     */
+    public function loginAs(Authenticable $user) : void 
+    {
+        $this->storage->set(self::STORAGE_KEY, $user->getId());
+    }
+
+    /**
      * Faz logout/desativa o usuário
      *
      * @return void

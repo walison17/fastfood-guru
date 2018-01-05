@@ -29,7 +29,6 @@ class RegistrationController
         $validator = new Validator;
 
         $rules = [
-            // 'username' => v::notOptional()->noWhitespace()->usernameAvailable(),
             'email' => v::notOptional()->email()->emailAvailable(),
             'name' => v::notOptional(),
             'password' => v::notOptional()
@@ -48,14 +47,13 @@ class RegistrationController
 
         $user = new User;
         $user->setName($request->getParam('name'));
-        // $user->setUsername($request->getParam('username'));
         $user->setEmail($request->getParam('email'));
         $user->setPassword(password_hash($request->getParam('password'), PASSWORD_BCRYPT)) ;
 
         $this->repository->save($user);
 
-        flash('success', '<script>alert("Cadastro concluído")</script>');
+        flash('success', 'cadastro concluído :)');
 
-        return redirect('home');
+        return redirect('auth.login');
     }
 }
