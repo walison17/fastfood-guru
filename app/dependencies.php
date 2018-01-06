@@ -43,6 +43,10 @@ $container['UsersRepository'] = function ($container) {
     return new \App\Db\UsersRepository(\App\Db\Connection\ConnectionFactory::make());
 };
 
+$container['UserController'] = function ($container) {
+    return new \App\Controllers\UserController($container['UsersRepository']);
+};
+
 $container['UserPhotoController'] = function ($container) {
     return new \App\Controllers\UserPhotoController($container['UsersRepository']);
 };

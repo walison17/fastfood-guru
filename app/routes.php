@@ -10,7 +10,7 @@ $app->post('/cadastrar', 'RegistrationController:register')->setName('reg.regist
 
 $app->get('/edit', 'UserPhotoController:index')->setName('user.edit');
 $app->post('/upload-photo', 'UserPhotoController:store')->setName('user.uploadPhoto');
-$app->post('/atualizar-perfil', 'App\Controllers\UserController:update')->setName('user.update');
+$app->post('/atualizar-perfil', 'UserController:update')->setName('user.update');
 
 $app->get('/', '\App\Controllers\PagesController:index')->setName('home');
 $app->get('/profile', '\App\Controllers\PagesController:profile')->setName('profile');
