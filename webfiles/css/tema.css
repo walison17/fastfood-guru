@@ -266,9 +266,9 @@ footer {
   background: #31b0d5;
   visibility: hidden;
   opacity: 0;
-  -webkit-transition: opacity .3s 0s, visibility 0s .3s;
-  -moz-transition: opacity .3s 0s, visibility 0s .3s;
-  transition: opacity .3s 0s, visibility 0s .3s; }
+  -webkit-transition: opacity .3s 0s, visibility 0s .3s;
+  -moz-transition: opacity .3s 0s, visibility 0s .3s;
+  transition: opacity .3s 0s, visibility 0s .3s; }
   .cd-top i {
     font-size: 22px;
     color: #fff;
@@ -420,7 +420,7 @@ footer {
   height: 100%;
   background: #fff;
   opacity: 0.8;
-  z-index: 100;
+  z-index: 10000;
   display: none; }
   .loading-content .cssload-loader {
     position: absolute;

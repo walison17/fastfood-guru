@@ -69,8 +69,33 @@
 <script>
     $('#form-editar-perfil').submit(function (e) {
         e.preventDefault();
-
-        $.post('/atualizar-perfil', $(this).serializeArray(), response => console.log(response))
+        $(".loading-content").addClass("show"); //Adiciona Loading
+        var data = $(this).serializeArray();
+        $(this).find(".invalid-feedback").html("");
+        $(this).find("input").removeClass("is-invalid");
+        $.ajax({
+            type: "POST",
+            url: "/atualizar-perfil",
+            data: data,
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload();
+            },
+            error : function (response){
+                let errors = response.responseJSON;
+                $("#form-editar-perfil input").each(function (key,value){
+                    let id = $(this).attr("id");
+                    if (errors[id] != undefined){
+                        $(this).addClass("is-invalid");
+                        $(this).parent().find(".invalid-feedback").html(errors[id]);
+                        return false;
+                    } 
+                });
+            }
+        }).always(function (){
+            $(".loading-content").removeClass("show"); //Remove Loading
+        });
     })
 </script>
 <?php $this->stop() ?>

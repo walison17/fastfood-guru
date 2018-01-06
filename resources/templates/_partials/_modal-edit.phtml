@@ -14,18 +14,27 @@
                     <div class="form-group">
                         <label>Nome</label>
                         <input class="form-control" value="<?= $user->getName() ?>" name="nome" id="nome" required>
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group">
                         <label>Cep</label>
                         <input class="form-control mask-cep" id="cep" value="" name="cep" id="cep">
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group">
-                        <label>Senha</label>
-                        <input id="senha" type="password" name="senha" class="form-control" placeholder="Não alterar para manter">
+                        <label>Senha Atual</label>
+                        <input id="senha_atual" type="password" name="senha_atual" class="form-control" placeholder="Digite sua senha atual">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nova Senha</label>
+                        <input id="senha" type="password" name="senha" class="form-control" placeholder="Não preencher para manter atual">
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group">
                         <label>Repita a Senha</label>
-                        <input id="repita-senha" type="password" name="repita-senha" class="form-control" placeholder="Repita a senha">
+                        <input id="repita-senha" type="password" name="repita-senha" class="form-control" placeholder="Repita a nova senha">
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
