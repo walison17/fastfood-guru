@@ -567,3 +567,10 @@ footer {
     -moz-transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg); } }
   .loading-content.show {
     display: block; }
+
+.alert-fixed {
+  position: fixed;
+  top: 50px;
+  right: 30px;
+  z-index: 100;
+  padding-right: 45px; }
