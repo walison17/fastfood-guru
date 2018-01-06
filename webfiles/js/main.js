@@ -34,7 +34,8 @@ $(document).ready(function () {
                 }
             },
             error : function (response){
-                console.log(response);
+                console.log(response.responseText);
+                alert(response.responseText);
             }
         }).always(function (){
             $(".loading-content").removeClass("show"); //Remove Loading

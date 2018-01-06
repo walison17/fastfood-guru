@@ -23,19 +23,27 @@ class UserController
 
         $rules = [
             'nome' => v::notOptional(),
-            'senha' => v::notOptional()->confirmed($request->getParam('repita-senha'))
+            'senha_atual' => v::notOptional(),
+            'senha' => v::confirmed($request->getParam('repita-senha'))
         ];
-
+        
         $validator->validate($request->getParams(), $rules);
 
         if ($validator->fail()) {
             return json($validator->getMessages(), 400);
         }
 
-        $user = auth()->getCurrentUser();   
+        $user = auth()->getCurrentUser(); 
+        
+        if (!password_verify($request->getParam('senha_atual'), $user->getPassword())) {
+            return json(['senha_atual' => 'Senha incorreta'], 400);
+        }
+        
         $user->setName($request->getParam('nome'));
-        $user->setPassword(password_hash($request->getParam('senha'), PASSWORD_BCRYPT)) ;
-
+        if($request->getParam('senha') != ""){
+            $user->setPassword(password_hash($request->getParam('senha'), PASSWORD_BCRYPT)) ;
+        }
+        
         $this->repository->save($user);
 
         return json('perfil atualizado!');
