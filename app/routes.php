@@ -10,9 +10,9 @@ $app->post('/cadastrar', 'RegistrationController:register')->setName('reg.regist
 
 $app->get('/edit', 'UserPhotoController:index')->setName('user.edit');
 $app->post('/upload-photo', 'UserPhotoController:store')->setName('user.uploadPhoto');
+$app->post('/atualizar-perfil', 'App\Controllers\UserController:update')->setName('user.update');
 
-//get routes
 $app->get('/', '\App\Controllers\PagesController:index')->setName('home');
 $app->get('/profile', '\App\Controllers\PagesController:profile')->setName('profile');
 
-$app->get('/storage/{filename}', 'App\Controller\StorageController:show')->setName('storage.show');
+$app->get('/storage/{filename}', 'App\Controllers\StorageController:show')->setName('storage.show');

@@ -65,4 +65,12 @@
         });
     });
 </script>
+
+<script>
+    $('#form-editar-perfil').submit(function (e) {
+        e.preventDefault();
+
+        $.post('/atualizar-perfil', $(this).serializeArray(), response => console.log(response))
+    })
+</script>
 <?php $this->stop() ?>
