@@ -1,7 +1,13 @@
 <?php $this->layout("layout") ?>
 <?php $this->start("body") ?>
 
-<?=  get_flash('success') ?>
+
+<?php if(get_flash('success') != "") : ?>
+    <?= $this->insert("_partials/_toast",["message" => get_flash('success'),"type" => "info"]) ?>
+<?php endif ?>
+<?php if(get_flash('errors') != "") : ?>
+    <?= $this->insert("_partials/_toast",["message" => get_flash('errors'),"type" => "error"]) ?>
+<?php endif ?>
 
     <section id="banner" style="background : url('<?= asset('images/back-banner.jpg') ?>')">
         <div class="container">

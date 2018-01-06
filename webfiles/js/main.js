@@ -1,5 +1,11 @@
 $(document).ready(function () {
 
+    window.setTimeout(function() {
+        $(".alert-fixed").fadeOut(300, function(){
+            $(this).remove(); 
+        });
+    }, 2500);
+
     $(".form-ajax").on('submit',function (event){
         event.preventDefault();
         let form = $(this);
