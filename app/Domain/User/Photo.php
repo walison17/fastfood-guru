@@ -18,6 +18,6 @@ class Photo
 
     public function __toString()
     {
-        return static_file($this->getFilename(), 'images');
+        return $this->filename();
     }
 }

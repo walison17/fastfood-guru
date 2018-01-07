@@ -5,6 +5,7 @@ namespace App\Controllers\Auth;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Domain\User\User;
+use App\Domain\User\Location;
 use App\Core\Validation\Validator;
 use Respect\Validation\Validator as v;
 use App\Domain\User\UsersRepositoryInterface;
@@ -29,8 +30,8 @@ class RegistrationController
         $validator = new Validator;
 
         $rules = [
-            // 'username' => v::notOptional()->noWhitespace()->usernameAvailable(),
             'email' => v::notOptional()->email()->emailAvailable(),
+            'cep' => v::notOptional(),
             'name' => v::notOptional(),
             'password' => v::notOptional()
                 ->alnum()
@@ -48,14 +49,20 @@ class RegistrationController
 
         $user = new User;
         $user->setName($request->getParam('name'));
-        // $user->setUsername($request->getParam('username'));
+        $location = new Location(
+            $request->getParam('city'), 
+            $request->getParam('state'), 
+            $request->getParam('lat'),
+            $request->getParam('lng')
+        );
+        $user->setLocation($location);
         $user->setEmail($request->getParam('email'));
         $user->setPassword(password_hash($request->getParam('password'), PASSWORD_BCRYPT)) ;
 
         $this->repository->save($user);
 
-        flash('success', '<script>alert("Cadastro concluído")</script>');
+        flash('success', 'cadastro concluído :)');
 
-        return redirect('home');
+        return view('auth.showForm');
     }
 }

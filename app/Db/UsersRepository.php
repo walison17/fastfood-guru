@@ -121,16 +121,19 @@ class UsersRepository extends Repository implements UsersRepositoryInterface, Au
     private function insert(User $user) : void
     {
         $query = 'INSERT INTO users 
-            (email, name, password, photo_path, username) 
-            VALUES (:email, :name, :password, :photo_path, :username)';
+            (email, name, password, photo_path, city, state, latitude, longitude) 
+            VALUES (:email, :name, :password, :photo_path, :city, :state, :latitude, :longitude)';
 
         try {
             $sttm = $this->connection->prepare($query);
             $sttm->bindValue(':email', $user->getEmail());
             $sttm->bindValue(':name', $user->getName());
             $sttm->bindValue(':password', $user->getPassword());
-            $sttm->bindValue(':photo_path', $user->getPhoto() ? $user->getPhoto()->getFilename() : null);
-            $sttm->bindValue(':username', $user->getUsername());
+            $sttm->bindValue(':photo_path', $user->hasPhoto() ? $user->getPhoto() : null);
+            $sttm->bindValue(':city', $user->getLocation()->getCity());
+            $sttm->bindValue(':state', $user->getLocation()->getState());
+            $sttm->bindValue(':latitude', $user->getLocation()->getLatitude());
+            $sttm->bindValue(':longitude', $user->getLocation()->getLongitude());
 
             $sttm->execute();
         } catch (\PDOException $e) {
@@ -148,21 +151,27 @@ class UsersRepository extends Repository implements UsersRepositoryInterface, Au
     {
         $query = 'UPDATE users 
             SET email = :email, 
-                username = :username,
                 name = :name, 
                 password = :password, 
                 photo_path = :photo_path,
+                city = :city,
+                state = :state, 
+                latitude = :latitude,
+                longitude = :longitude,
                 updated_at = CURRENT_TIMESTAMP()
             WHERE id = :id';
 
         try {
             $sttm = $this->connection->prepare($query);
             $sttm->bindValue(':id', $user->getId());
-            $sttm->bindValue(':username', $user->getUsername());
             $sttm->bindValue(':name', $user->getName());
             $sttm->bindValue(':email', $user->getEmail());
             $sttm->bindValue(':password', $user->getPassword());
-            $sttm->bindValue(':photo_path', $user->getPhoto()->getFilename());
+            $sttm->bindValue(':photo_path', $user->hasPhoto() ? $user->getPhoto() : null);
+            $sttm->bindValue(':city', $user->getLocation()->getCity());
+            $sttm->bindValue(':state', $user->getLocation()->getState());
+            $sttm->bindValue(':latitude', $user->getLocation()->getLatitude());
+            $sttm->bindValue(':longitude', $user->getLocation()->getLongitude());
         
             $sttm->execute();
         } catch (\PDOException $e) {
