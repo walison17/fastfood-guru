@@ -6,13 +6,15 @@ class Location
 {
     private $city;
     private $state;
-    private $postalCode; 
+    private $latitude;
+    private $longitude;
 
-    public function __construct(int $postalCode, string $city, string $state)
+    public function __construct(string $city, string $state, float $latitude, float $longitude)
     {
-        $this->postalCode = $postalCode;
         $this->city = $city;
         $this->state = $state;
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
     }
 
     public function getCity()
@@ -20,13 +22,18 @@ class Location
         return $this->city;
     }
 
-    public function getPostalCode()
-    {
-        return $this->postalCode;
-    }
-
     public function getState()
     {
         return $this->state;
+    }
+
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    public function getLongitude()
+    {
+        return $this->longitude;
     }
 }

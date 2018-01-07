@@ -8,11 +8,14 @@ $app->post('/auth/login', 'AuthController:login')->setName('auth.login');
 $app->get('/cadastro', 'RegistrationController:showForm')->setName('reg.showForm')->add(new \App\Middlewares\GuestMiddleware);
 $app->post('/cadastrar', 'RegistrationController:register')->setName('reg.register');
 
-$app->get('/edit', 'UserPhotoController:index')->setName('user.edit');
-$app->post('/upload-photo', 'UserPhotoController:store')->setName('user.uploadPhoto');
-$app->post('/atualizar-perfil', 'UserController:update')->setName('user.update');
 
 $app->get('/', '\App\Controllers\PagesController:index')->setName('home');
-$app->get('/profile', '\App\Controllers\PagesController:profile')->setName('profile');
+
+$app->group('/', function () {
+    $this->get('profile', '\App\Controllers\PagesController:profile')->setName('profile');
+    $this->post('upload-photo', 'UserPhotoController:store')->setName('user.uploadPhoto');
+    $this->get('edit', 'UserPhotoController:index')->setName('user.edit');
+    $this->post('atualizar-perfil', 'UserController:update')->setName('user.update');
+})->add(new \App\Middlewares\AuthMiddleware);
 
 $app->get('/storage/{filename}', 'App\Controllers\StorageController:show')->setName('storage.show');

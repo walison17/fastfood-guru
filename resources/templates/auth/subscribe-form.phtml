@@ -41,7 +41,7 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="cep">Cep</label>
-                                <input name="cep" type="text" value="<?= old('cep') ?>" id="cep" class="form-control mask-cep <?= errors()->has('cep') ? 'is-invalid' : '' ?>">
+                                <input data-mask="99.999-999" name="cep" type="text" value="<?= old('cep') ?>" id="cep" class="form-control mask-cep <?= errors()->has('cep') ? 'is-invalid' : '' ?>">
 
                                 <?php if (errors()->has('cep')): ?> 
                                     <div class="invalid-feedback">
@@ -50,6 +50,8 @@
                                 <?php endif ?>
                                 <input type="hidden" name="city" value="">
                                 <input type="hidden" name="state" value="">
+                                <input type="hidden" name="lat" value="">
+                                <input type="hidden" name="lng" value="">
                             </div>
                         </div>
 
@@ -85,54 +87,6 @@
 <?php $this->stop('body') ?>
 
 <?php $this->start('scripts') ?>
-<script src="<?= asset('js/jquery.mask.min.js') ?>"></script>
-    <script>
-        $(document).ready(function () {
-            $(".mask-cep").mask("99.999-999");
-            const cepElement = document.querySelector('input[name="cep"]')
-            const city = document.querySelector('input[name="city"]')
-            const state = document.querySelector('input[name="state"]')
-            
-            $(cepElement).blur(function () {
-                var cep = $(this).val().replace(/\D/g, '');
-                //Verifica se campo cep possui valor informado.
-                if (cep != "") {
-
-                    //Expressão regular para validar o CEP.
-                    var validacep = /^[0-9]{8}$/;
-
-                    //Valida o formato do CEP.
-                    if (validacep.test(cep)) {
-
-                        //Consulta o webservice viacep.com.br/
-                        $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
-
-                            if (!("erro" in dados)) {
-                                alert("CEP Válido :)");
-                                //Atualiza os campos com os valores da consulta.
-                                $(state).val(dados.uf);
-                                $(city).val(dados.localidade);
-
-                            }
-                            else {
-                                //CEP pesquisado não foi encontrado.
-                                $(cepElement).val("");
-                                alert("O CEP não foi encontrado :(");
-                            }
-                        });
-                    } //end if.
-                    else {
-                        //cep é inválido.
-                        $(cepElement).val("");
-                        alert("Formato de CEP inválido");
-                    }
-                } //end if.
-                else {
-                    $(cepElement).val("");
-                }
-
-            });
-
-        });
-    </script>
+    <script src="<?= asset('js/jquery.mask.min.js') ?>"></script>
+    <script src="<?= asset('js/location.js') ?>"></script>
 <?php $this->stop('scripts') ?> 

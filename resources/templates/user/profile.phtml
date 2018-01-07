@@ -10,10 +10,10 @@
                         <a href="#" class="follow_btn new-post">Nova Avaliação</a>
                     </div>
                     <div class="col-md-8 col-12">
-                        <?php if (auth()->getCurrentUser()->getPhoto()->getFileName() == null) : ?>
-                            <img src="<?= asset('images/user.png') ?>" class="img-thumbnail picture" />
-                        <?php else : ?>
+                        <?php if (auth()->getCurrentUser()->hasPhoto()) : ?>
                             <img src="<?= auth()->getCurrentUser()->getPhoto() ?>" class="img-thumbnail picture" />
+                        <?php else : ?>
+                            <img src="<?= asset('images/user.png') ?>" class="img-thumbnail picture" />
                         <?php endif ?>
                         <button type="button" id="btn-muda-foto" data-toggle="modal" data-target="#modal-foto" class="btn">
                             <i class="fa fa-picture-o"></i>

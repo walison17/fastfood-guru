@@ -69,7 +69,7 @@ class User extends Entity implements Authenticable
         return $this;
     }
 
-    public function getLocation()
+    public function getLocation() : Location
     {
         return $this->location;
     }
@@ -81,17 +81,22 @@ class User extends Entity implements Authenticable
         return $this;
     }
 
+    public function hasPhoto()
+    {
+        return ! is_null($this->photo);
+    }
+
     /**
      * Retorna a foto de usuário
      *
      * @return \App\Domain\User\Photo
      */
-    public function getPhoto()
+    public function getPhoto() : Photo
     {
         return $this->photo;
     }
 
-    public function setPhoto(Photo $photo)
+    public function setPhoto(?Photo $photo)
     {
         $this->photo = $photo;
 
