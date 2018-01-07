@@ -18,6 +18,6 @@ class Photo
 
     public function __toString()
     {
-        return $this->filename();
+        return $this->filename;
     }
 }
