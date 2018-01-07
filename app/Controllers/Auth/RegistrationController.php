@@ -52,8 +52,8 @@ class RegistrationController
         $location = new Location(
             $request->getParam('city'),
             $request->getParam('state'),
-            $request->getParam('lat'),
-            $request->getParam('lng')
+            (float) $request->getParam('lat'),
+            (float) $request->getParam('lng')
         );
         $user->setLocation($location);
         $user->setEmail($request->getParam('email'));
@@ -63,6 +63,6 @@ class RegistrationController
 
         flash('success', 'cadastro concluído :)');
 
-        return view('auth.showForm');
+        return redirect('auth.showForm');
     }
 }
