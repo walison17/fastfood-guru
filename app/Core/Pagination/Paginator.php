@@ -28,12 +28,10 @@ class Paginator implements PaginatorInterface
 
     public function getRange(int $currentPage, int $size = 5)
     {
-        $begin = max(1, $currentPage - $size); 
+        $begin = max($currentPage - $size, 1); 
         $end = min($currentPage + $size, $this->getTotalPages());
 
-        foreach (range($begin, $end) as $page) {
-            yield $page;
-        }
+        return range($begin, $end);
     }
 
     /**

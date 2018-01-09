@@ -12,7 +12,7 @@ interface PageInterface
 
     public function previous();
 
-    public function items();
+    public function results();
 
-    public function last();
+    public function lastIndex();
 }

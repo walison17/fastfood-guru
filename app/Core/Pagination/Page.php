@@ -16,7 +16,7 @@ class Page implements PageInterface
      *
      * @var array
      */
-    private $items;
+    private $results;
 
     /**
      * Paginador
@@ -25,9 +25,9 @@ class Page implements PageInterface
      */
     private $paginator;
 
-    public function __construct(array $items, int $number, PaginatorInterface $paginator)
+    public function __construct(array $results, int $number, PaginatorInterface $paginator)
     {
-        $this->items = $items;
+        $this->results = $results;
         $this->number = $number;
         $this->paginator = $paginator;
     }
@@ -78,9 +78,9 @@ class Page implements PageInterface
      *
      * @return array
      */
-    public function items()
+    public function results()
     {
-        return $this->items;
+        return $this->results;
     }
 
     /**
@@ -88,7 +88,7 @@ class Page implements PageInterface
      *
      * @return int
      */
-    public function last()
+    public function lastIndex()
     {
         return $this->paginator->getTotalPages();
     }
