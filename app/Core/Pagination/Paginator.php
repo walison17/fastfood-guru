@@ -6,13 +6,13 @@ class Paginator implements PaginatorInterface
 {
     private $items;
     private $total; 
-    private $perPage;
+    private $pageSize;
 
-    public function __construct(array $items, int $total, int $perPage = 20)
+    public function __construct(array $items, int $total, int $pageSize = 20)
     {
         $this->items = $items;
         $this->total = $total;
-        $this->perPage = $perPage;
+        $this->pageSize = $pageSize;
     }
 
     /**
@@ -24,6 +24,16 @@ class Paginator implements PaginatorInterface
     public function getPage(int $number)
     {
         return new Page($this->items, $number, $this);
+    }
+
+    public function getRange(int $currentPage, int $size = 5)
+    {
+        $begin = max(1, $currentPage - $size); 
+        $end = min($currentPage + $size, $this->getTotalPages());
+
+        foreach (range($begin, $end) as $page) {
+            yield $page;
+        }
     }
 
     /**
@@ -43,17 +53,17 @@ class Paginator implements PaginatorInterface
      */
     public function getTotalPages()
     {
-        return (int) ceil($this->total / $this->perPage);
+        return (int) ceil($this->total / $this->pageSize);
     }
 
     /**
-     * Retorna a quantidade de itens exibidos por página 
+     * Retorna a quantidade de itens exibidos por página, ou seja, o tamanho da página  
      *
      * @param integer $number
      * @return int
      */
-    public function getPerPage()
+    public function getPageSize()
     {
-        return $this->perPage;
+        return $this->pageSize;
     }
 }

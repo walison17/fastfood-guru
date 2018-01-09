@@ -8,7 +8,9 @@ interface PaginatorInterface
 
     public function getTotalPages();
 
-    public function getPerPage();
+    public function getPageSize();
 
     public function getPage(int $number);
+
+    public function getRange(int $currentPage, int $size = 5);
 }
