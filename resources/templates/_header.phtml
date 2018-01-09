@@ -4,15 +4,24 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-sm-12 col-12"> 
+                <div class="col-md-5 col-sm-12 col-12"> 
                     <ul class="pull-left">
                         <li><a href="<?= url("home") ?>">Home</a></li>
-                        <?php for($i = 1;$i <= 2;$i++) : ?>
-                            <li><a href="http://">Menu</a></li>
-                        <?php endfor ?>
+                        <li><a href="#">Avaliação</a></li>
                     </ul>
                 </div>
-                <div class="col-md-6 col-sm-12 col-12">
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                    <div class="logo">
+                        <a href="<?= url("home") ?>">
+                            <?php if(on_page('home')) : ?>
+                                <img data-white="<?= asset('images/burguer-white.svg') ?>" data-original="<?= asset('images/burguer.svg') ?>" alt="Fast Food Guru" title="Fast Food Guru" src="<?= asset('images/burguer-white.svg') ?>" />
+                            <?php else : ?>
+                            <img alt="Fast Food Guru" title="Fast Food Guru" src="<?= asset('images/burguer.svg') ?>" />
+                            <?php endif ?>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12 col-12">
                     <ul class="pull-right">
                         <?php if (! auth()->check()) : ?> 
                         <li>

@@ -34,12 +34,15 @@ header {
     z-index: 100;
     padding-top: 10px;
     padding-bottom: 10px;
+    transition: all 0.3s ease;
     .row {
         display: flex;
         align-items: center;
     }
     &.back-white {
         background: #fff;
+        height : 68px;
+        padding-top: 3px;
         box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.1);
         ul {
             li {
@@ -87,6 +90,14 @@ header {
             }
         }
     }
+    .logo{
+        text-align: center;
+        margin-left: 3px;
+        img{
+            width : 60px;
+            transition: all 0.3s ease;
+        }
+    }
 }
 
 #banner {
@@ -98,7 +109,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    @media screen and (max-width: 800px) {
+    @media screen and (min-width: 800px) {
         background-attachment: fixed !important;
     }
     &:before {
@@ -108,7 +119,13 @@ header {
         left: 0px;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
+        background: linear-gradient(to bottom, #3a689a 0%, #3A92B1 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3A92B1), color-stop(100%, #3A92B1));
+        background: -webkit-linear-gradient(top, #3a689a 0%, #3A92B1 100%);
+        background: -o-linear-gradient(top, #3a689a 0%, #3A92B1 100%);
+        background: -ms-linear-gradient(top, #3a689a 0%, #3A92B1 100%);
+        background: linear-gradient(to bottom, #3a689a 0%, #3A92B1 100%);
+        opacity: 0.7;
     }
     .row {
         display: flex;
