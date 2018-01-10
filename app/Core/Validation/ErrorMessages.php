@@ -25,6 +25,20 @@ class ErrorMessages implements Serializable, JsonSerializable
     }
 
     /**
+     * Adiciona uma mensagem para o campo informado
+     *
+     * @param string $field
+     * @param string $message
+     * @return $this
+     */
+    public function add(string $field, string $message)
+    {
+        $this->messages[$field] = $message;
+
+        return $this;
+    }
+
+    /**
      * Retorna a mensagem para o campo 
      *
      * @param string $field
@@ -54,6 +68,16 @@ class ErrorMessages implements Serializable, JsonSerializable
     public function getAll()
     {
         return $this->messages;
+    }
+    
+    /**
+     * Retorna todos os campos que contem erros
+     *
+     * @return string[]
+     */
+    public function getFields()
+    {
+        return array_keys($this->messages);
     }
 
     /**

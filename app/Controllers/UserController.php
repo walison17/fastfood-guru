@@ -17,17 +17,23 @@ class UserController
         $this->repository = $repository;
     }
 
+    /**
+     * Atualiza os dados do usuário
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param mixed $args
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function update(Request $request, Response $response, $args)
     {
         $validator = new Validator;
 
-        $rules = [
+        $validator->validate($request->getParams(), [
             'nome' => v::notOptional(),
             'senha_atual' => v::notOptional(),
             'senha' => v::confirmed($request->getParam('repita-senha'))
-        ];
-        
-        $validator->validate($request->getParams(), $rules);
+        ]);
 
         if ($validator->fail()) {
             return json($validator->getMessages(), 400);
@@ -35,14 +41,12 @@ class UserController
 
         $user = auth()->getCurrentUser(); 
         
-        if (!password_verify($request->getParam('senha_atual'), $user->getPassword())) {
-            return json(['senha_atual' => 'Senha incorreta'], 400);
+        if (! password_verify($request->getParam('senha_atual'), $user->getPassword())) {
+            return json($validator->getMessages()->add('senha_atual', 'senha incorreta'), 400);
         }
-        
+    
         $user->setName($request->getParam('nome'));
-        if($request->getParam('senha') != ""){
-            $user->setPassword(password_hash($request->getParam('senha'), PASSWORD_BCRYPT)) ;
-        }
+        $user->setPassword(password_hash($request->getParam('senha'), PASSWORD_BCRYPT));
         
         $this->repository->save($user);
 
