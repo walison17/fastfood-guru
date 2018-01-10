@@ -44,15 +44,20 @@
         $(document).ready(function () {
             if ($(window).scrollTop() > $("header").outerHeight()) {
                 $("header").addClass("back-white");
+                $(".header .logo img").attr("src",$(".header .logo img").data("original"));
             } else {
                 $("header").removeClass("back-white");
+                $(".header .logo img").attr("src",$(".header .logo img").data("white"));
             }
 
             $(window).scroll(function () {
                 if ($(window).scrollTop() > $("header").outerHeight()) {
                     $("header").addClass("back-white");
+                    console.log($("header .logo img").data("original"));
+                    $("header .logo img").attr("src",$("header .logo img").data("original"));
                 } else {
                     $("header").removeClass("back-white");
+                    $("header .logo img").attr("src",$("header .logo img").data("white"));
                 }
             });
         });
