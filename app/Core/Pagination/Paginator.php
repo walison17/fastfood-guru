@@ -30,8 +30,17 @@ class Paginator implements PaginatorInterface
     {
         $begin = max($currentPage - $size, 1); 
         $end = min($currentPage + $size, $this->getTotalPages());
+        $range = range($begin, $end);
 
-        return range($begin, $end);
+        if ($begin > 2) {
+            array_unshift($range, null); 
+        } 
+
+        if ($end < $this->getTotalPages() - 2) {
+            array_push($range, null);
+        } 
+
+        return $range;
     }
 
     /**
