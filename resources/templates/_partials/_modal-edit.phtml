@@ -18,8 +18,12 @@
                     </div>
                     <div class="form-group">
                         <label>Cep</label>
-                        <input class="form-control mask-cep" id="cep" value="" name="cep" id="cep">
+                        <input data-mask="99.999-999" class="form-control mask-cep" id="cep" value="" name="cep" id="cep">
                         <div class="invalid-feedback"></div>
+                        <input type="hidden" name="city" value="">
+                        <input type="hidden" name="state" value="">
+                        <input type="hidden" name="lat" value="">
+                        <input type="hidden" name="lng" value="">
                     </div>
                     <div class="form-group">
                         <label>Senha Atual</label>
@@ -33,7 +37,7 @@
                     </div>
                     <div class="form-group">
                         <label>Repita a Senha</label>
-                        <input id="repita-senha" type="password" name="repita-senha" class="form-control" placeholder="Repita a nova senha">
+                        <input id="repita-senha" data-compare="senha" type="password" name="repita-senha" class="form-control" placeholder="Repita a nova senha">
                         <div class="invalid-feedback"></div>
                     </div>
                 </div>

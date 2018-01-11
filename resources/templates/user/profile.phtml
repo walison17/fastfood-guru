@@ -1,6 +1,6 @@
 <?php $this->layout("layout") ?>
 <?php $this->start("body") ?>
-<section class="sessao-perfil">
+<section class="sessao-perfil" style="margin-top : 50px">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -22,7 +22,7 @@
                         <div class="header">
                             <h2><?= auth()->getCurrentUser()->getName() ?></h2>
                             <p><i class="fa fa-envelope mr-1"></i><?= auth()->getCurrentUser()->getEmail() ?></p>
-                            <p><i class="fa fa-map-marker mr-1"></i>Caruaru - PE</p>
+                            <p><i class="fa fa-map-marker mr-1"></i><?= auth()->getCurrentUser()->getLocation()->getCity() . ' - ' . auth()->getCurrentUser()->getLocation()->getState() ?></p>
                         </div>
                     </div>
                 </div>   
@@ -44,6 +44,8 @@
 <?php $this->stop(); ?>
 
 <?php $this->start("scripts") ?>
+<script src="<?= asset('js/jquery.mask.min.js') ?>"></script>
+<script src="<?= asset('js/location.js') ?>"></script>
 <script src="<?= asset("js/jquery.form.min.js") ?>"></script>
 <script>
     $(document).ready(function () {
@@ -66,7 +68,7 @@
     });
 </script>
 
-<script>
+<script>  
     $('#form-editar-perfil').submit(function (e) {
         e.preventDefault();
         $(".loading-content").addClass("show"); //Adiciona Loading
@@ -87,6 +89,8 @@
                 $("#form-editar-perfil input").each(function (key,value){
                     let id = $(this).attr("id");
                     if (errors[id] != undefined){
+                        $('input[data-compare="' + id + '"]').addClass("is-invalid");
+                        $('input[data-compare="' + id + '"]').parent().find(".invalid-feedback").html(errors[id]);
                         $(this).addClass("is-invalid");
                         $(this).parent().find(".invalid-feedback").html(errors[id]);
                         return false;
