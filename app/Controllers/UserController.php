@@ -57,7 +57,9 @@ class UserController
         }
     
         $user->setName($request->getParam('nome'));
-        $user->setPassword(password_hash($request->getParam('senha'), PASSWORD_BCRYPT));
+        if(! empty($request->getParam('senha'))){
+            $user->setPassword(password_hash($request->getParam('senha'), PASSWORD_BCRYPT));
+        }
         
         $this->repository->save($user);
 
