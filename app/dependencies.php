@@ -53,9 +53,18 @@ $container['UserPhotoController'] = function ($container) {
 
 //controllers
 $container['AuthController'] = function () use ($container) {
-    return new \App\Controllers\Auth\AuthController($container['auth']);
+    return new \App\Controllers\Auth\AuthController($container['auth.web']);
 };
 
 $container['RegistrationController'] = function ($container) {
     return new \App\Controllers\Auth\RegistrationController($container['UsersRepository']);
 };
+
+$container['auth.web'] = function ($container) {
+    $provider = new \App\Core\Auth\Providers\DatabaseProvider(
+        $container['UsersRepository'], 
+        $container['auth.storage']
+    );
+
+    return new \App\Core\Auth\Authenticator($provider);
+}; 

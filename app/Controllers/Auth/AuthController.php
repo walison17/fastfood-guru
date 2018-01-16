@@ -63,8 +63,10 @@ class AuthController
 
         try {
             $this->authenticator->authenticate(
-                $request->getParam('email'), 
-                $request->getParam('password')
+                [
+                    'email' => $request->getParam('email'), 
+                    'password' => $request->getParam('password')
+                ]
             );
         } catch (UserDoesntExistsException $ex) {
             flash_error('email','Email não cadastrado');

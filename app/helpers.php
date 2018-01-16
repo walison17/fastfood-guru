@@ -23,7 +23,7 @@ if (! function_exists('auth'))
      */
     function auth()
     {
-        return app('auth');
+        return app('auth.web');
     }
 }
 

@@ -3,9 +3,9 @@
 namespace App\Domain\User;
 
 use App\Domain\Entity;
-use App\Core\Auth\Authenticable;
+use App\Core\Auth\Authenticatable;
 
-class User extends Entity implements Authenticable
+class User extends Entity implements Authenticatable
 {
     private $email;
     private $name;

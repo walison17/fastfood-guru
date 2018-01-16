@@ -2,51 +2,44 @@
 
 namespace App\Core\Auth;
 
-use App\Core\Auth\Authenticable;
-use App\Support\StorageInterface;
-use App\Core\Auth\AuthRepositoryInterface;
+use App\Core\Auth\Authenticatable;
+use App\Core\Auth\Providers\UserProviderInterface as UserProvider;
 use App\Core\Auth\Exceptions\UserDoesntExistsException;
 use App\Core\Auth\Exceptions\PasswordDontMatchException;
 
 class Authenticator
 {
-    /** @var \App\Support\StorageInterface */
-    protected $storage;
+    /** 
+     * @var UserProvider
+     */
+    private $provider;
 
-    /** @var \App\Core\Auth\AuthRepositoryInterface */
-    protected $repository;
-
-    private const STORAGE_KEY = 'user';
-
-    public function __construct(AuthRepositoryInterface $repository, StorageInterface $storage)
+    public function __construct(UserProvider $provider)
     {
-        $this->storage = $storage;
-        $this->repository = $repository;
+        $this->provider = $provider;
     }
 
     /**
      * Tenta autenticar o usuário através das credenciais informadas 
-     *
-     * @param string $email
-     * @param string $password
-     * @throws \App\Core\Auth\Exceptions\UserDoesntExistsException
-     * @throws \App\Core\Auth\Exceptions\PasswordDontMatchException
-     * @return Authenticable
+     * 
+     * @param array $credentials
+     * @throws UserDoesntExistsException
+     * @throws PasswordDontMatchException
+     * @return Authenticatable
      */
-    public function authenticate(string $email, string $password) : Authenticable
+    public function authenticate(array $credentials) : Authenticatable
     {
-        /** @var AuthenticableInterface */
-        $user = $this->repository->getByEmail($email);
+        $user = $this->provider->find($credentials);
 
         if (! $user) {
             throw new UserDoesntExistsException;
         }
 
-        if (! password_verify($password, $user->getPassword())) {
+        if (! $this->provider->validateCredentials($user, $credentials)) {
             throw new PasswordDontMatchException;
         }
 
-        $this->storage->set(self::STORAGE_KEY, $user->getId());
+        $this->provider->activate($user);
 
         return $user;
     }
@@ -54,15 +47,11 @@ class Authenticator
     /**
      * Retorna o usuário ativo 
      *
-     * @return Authenticable|null
+     * @return Authenticatable|null
      */
     public function getCurrentUser()
     {
-        if (! $this->check()) return null;
-        
-        $id = $this->storage->get(self::STORAGE_KEY); 
-
-        return $this->repository->getById($id);
+        return $this->provider->getActivated();
     }
 
     /**
@@ -72,7 +61,7 @@ class Authenticator
      */
     public function check() : bool
     {
-        return $this->storage->exists(self::STORAGE_KEY);
+        return ! is_null($this->provider->getActivated());
     }
 
     /**
@@ -81,12 +70,12 @@ class Authenticator
      * deve ser usado apenas para testes ou quando se tem certeza absoluta que o usuário 
      * já possui cadastro
      *
-     * @param Authenticable $user
+     * @param Authenticatable $user
      * @return void
      */
-    public function loginAs(Authenticable $user) : void 
+    public function loginAs(Authenticatable $user) : void 
     {
-        $this->storage->set(self::STORAGE_KEY, $user->getId());
+        $this->provider->activate($user);
     }
 
     /**
@@ -96,6 +85,6 @@ class Authenticator
      */
     public function logout() : void
     {
-        $this->storage->remove(self::STORAGE_KEY);
+        $this->provider->deactivate();
     }
 }
