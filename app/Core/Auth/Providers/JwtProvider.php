@@ -2,7 +2,9 @@
 
 namespace App\Core\Auth\Providers;
 
+use Firebase\JWT\JWT;
 use App\Core\Auth\Authenticatable;
+use Psr\Http\Message\RequestInterface;
 use App\Support\StorageInterface as Storage;
 use App\Core\Auth\AuthRepositoryInterface as AuthRepository;
 
@@ -18,9 +20,17 @@ class JwtProvider implements UserProviderInterface
      */
     private $repository;
 
-    public function __construct(AuthRepository $repository)
+    /**
+     * Requisição
+     *
+     * @var RequestInterface
+     */
+    private $request;
+
+    public function __construct(AuthRepository $repository, RequestInterface $request)
     {
         $this->repository = $repository;
+        $this->request = $request;
     }
 
     /**
@@ -64,8 +74,11 @@ class JwtProvider implements UserProviderInterface
      */
     public function getActivated()
     {
-        return $this->repository->getById($this->storage->get(self::STORAGE_KEY));
-    }
+        [$token] = $this->request->getHeader('Authorization');
+        $decoded = JWT::decode($token, config('jwt_key'), ['HS256']);
+
+        return $this->repository->getById($decoded->id);
+     }
 
     /**
      * {@inheritDoc}

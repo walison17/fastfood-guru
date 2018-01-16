@@ -52,7 +52,7 @@ $container['UserPhotoController'] = function ($container) {
 };
 
 //controllers
-$container['AuthController'] = function () use ($container) {
+$container['AuthController'] = function ($container) {
     return new \App\Controllers\Auth\AuthController($container['auth.web']);
 };
 
@@ -68,3 +68,9 @@ $container['auth.web'] = function ($container) {
 
     return new \App\Core\Auth\Authenticator($provider);
 }; 
+
+$container['auth.jwt'] = function ($container) {
+    $provider = new \App\Core\Auth\Providers\JwtProvider($container['UsersRepository'], $container['request']);
+
+    return new \App\Core\Auth\Authenticator($provider);
+};
