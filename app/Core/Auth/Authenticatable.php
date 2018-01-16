@@ -2,7 +2,7 @@
 
 namespace App\Core\Auth;
 
-interface Authenticable
+interface Authenticatable
 {
     /**
      * pega o identificador único do usuário

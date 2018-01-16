@@ -8,7 +8,7 @@ interface AuthRepositoryInterface
      * Busca um usuário a partir de seu identificador
      *
      * @param mixed $id
-     * @return \App\Core\Auth\Authenticable|null
+     * @return \App\Core\Auth\Authenticatable|null
      */
     public function getById($id);
 
@@ -16,7 +16,7 @@ interface AuthRepositoryInterface
      * Busca um usuário pelo email  
      *
      * @param string $email
-     * @return \App\Core\Auth\Authenticable|null
+     * @return \App\Core\Auth\Authenticatable|null
      */
     public function getByEmail(string $email);
 }
