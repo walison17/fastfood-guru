@@ -21,9 +21,9 @@ if (! function_exists('auth'))
     /**
      * @return \App\Core\Auth\Authenticator
      */
-    function auth()
+    function auth(string $provider = 'web')
     {
-        return app('auth.web');
+        return app("auth.{$provider}");
     }
 }
 

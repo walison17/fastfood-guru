@@ -20,7 +20,8 @@
         "oscarotero/psr7-middlewares": "^3.21",
         "zeuxisoo/slim-whoops": "^0.6.1",
         "respect/validation": "^1.1",
-        "slim/flash": "^0.4.0"
+        "slim/flash": "^0.4.0",
+        "firebase/php-jwt": "^5.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^3.3",

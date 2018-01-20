@@ -2,6 +2,7 @@
 
 return [
     'settings' => [
+        'jwt_key' => 'aroundtheworld',
         'debug' => true,
 
         'whoops.editor' => 'vscode',
