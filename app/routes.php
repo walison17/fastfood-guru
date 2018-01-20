@@ -10,6 +10,8 @@ $app->post('/cadastrar', 'RegistrationController:register')->setName('reg.regist
 
 
 $app->get('/', '\App\Controllers\PagesController:index')->setName('home');
+$app->get('/empresas', '\App\Controllers\PagesController:empresas')->setName('empresas');
+$app->get('/busca', '\App\Controllers\BuscaController:index')->setName('busca.index');
 
 $app->group('/', function () {
     $this->get('profile', '\App\Controllers\PagesController:profile')->setName('profile');

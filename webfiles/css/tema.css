@@ -589,3 +589,83 @@ footer {
   right: 30px;
   z-index: 100;
   padding-right: 45px; }
+
+section#busca-content {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 300px;
+  background-position: center center !important;
+  background-size: cover !important;
+  align-items: center;
+  justify-content: center; }
+  section#busca-content h1 {
+    font-size: 28px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase; }
+  section#busca-content .container {
+    width: 100%; }
+  section#busca-content:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #3a689a 0%, #3A92B1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3A92B1), color-stop(100%, #3A92B1));
+    background: -webkit-linear-gradient(top, #3a689a 0%, #3A92B1 100%);
+    background: -o-linear-gradient(top, #3a689a 0%, #3A92B1 100%);
+    background: -ms-linear-gradient(top, #3a689a 0%, #3A92B1 100%);
+    background: linear-gradient(to bottom, #3a689a 0%, #3A92B1 100%);
+    opacity: 0.7; }
+  section#busca-content .row form {
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center; }
+  section#busca-content .row input {
+    height: 50px;
+    border-radius: 0px;
+    border: 0px !important; }
+  section#busca-content .row button {
+    height: 50px;
+    font-weight: bold;
+    border-radius: 0px !important;
+    cursor: pointer; }
+
+.empresa-box {
+  display: flex;
+  align-items: center;
+  max-height: 150px;
+  border: 1px solid #cecece;
+  margin-bottom: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+  .empresa-box .imagem {
+    overflow: hidden; }
+    .empresa-box .imagem img {
+      transition: all 0.4s ease-in-out;
+      object-fit: cover;
+      width: 150px;
+      height: 150px; }
+  .empresa-box .info-empresa {
+    padding: 20px; }
+    .empresa-box .info-empresa h4 {
+      font-size: 14px;
+      margin-bottom: 10px;
+      font-weight: bold; }
+    .empresa-box .info-empresa p {
+      font-size: 12px;
+      color: #818182;
+      font-weight: bold;
+      margin-bottom: 10px; }
+      .empresa-box .info-empresa p i {
+        margin-right: 6px; }
+    .empresa-box .info-empresa .link {
+      font-size: 12px; }
+      .empresa-box .info-empresa .link i {
+        margin-right: 6px; }
+  .empresa-box:hover .imagem img {
+    transform: scale(1.2); }

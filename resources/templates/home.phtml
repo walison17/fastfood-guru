@@ -13,8 +13,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-12 m-t-3">
-                    <form data-action="" class="form-ajax">
-                        <input type="text" class="form-control" placeholder="Busque locais">
+                    <form method="GET" action="<?= url('busca.index') ?>">
+                        <input name="query" required type="text" class="form-control" placeholder="Busque locais">
                         <button class="btn btn-info">
                             <i class="fa fa-search"></i> Buscar</button>
                     </form>

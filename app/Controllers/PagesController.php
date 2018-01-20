@@ -9,11 +9,18 @@ use Slim\Http\Response;
 
 class PagesController{
 
-    function index(Request $request,Response $response){
+    function index(Request $request,Response $response)
+    {
         return view("home");    
     }
 
-    function profile(Request $request,Response $response){
+    function empresas(Request $request,Response $response)
+    {
+        return view('empresas');
+    }
+
+    function profile(Request $request,Response $response)
+    {
         if (auth()->check()){
             return view("user/profile");
         }else{

@@ -1,0 +1,19 @@
+<section id="busca-content" style="background : url('<?= asset('images/back-banner.jpg') ?>')">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Busca uma empresa para a availiação</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-12 col-12 m-t-3">
+                <form action="<?= url('busca.index') ?>" data-action="">
+                    <input required name="query" type="text" class="form-control" placeholder="Busque locais">
+                    <button class="btn btn-info">
+                        <i class="fa fa-search"></i> Buscar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

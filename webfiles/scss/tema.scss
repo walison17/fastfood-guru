@@ -736,3 +736,108 @@ footer {
     z-index: 100;
     padding-right: 45px;
 }
+
+section#busca-content{
+    position: relative;
+    display: flex;
+    width : 100%;
+    min-height: 300px;
+    background-position: center center !important;
+    background-size: cover !important;
+    align-items: center;
+    justify-content: center;
+    h1{
+        font-size: 28px;
+        letter-spacing: 2px;
+        font-weight: bold;
+        text-align: center;
+        color: #fff;
+        text-transform: uppercase;
+    }
+    .container{
+        width : 100%;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, #3a689a 0%, #3A92B1 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3A92B1), color-stop(100%, #3A92B1));
+        background: -webkit-linear-gradient(top, #3a689a 0%, #3A92B1 100%);
+        background: -o-linear-gradient(top, #3a689a 0%, #3A92B1 100%);
+        background: -ms-linear-gradient(top, #3a689a 0%, #3A92B1 100%);
+        background: linear-gradient(to bottom, #3a689a 0%, #3A92B1 100%);
+        opacity: 0.7;
+    }
+    .row {
+        form {
+            margin-bottom: 0px;
+            display: flex;
+            align-items: center;
+        }
+        input {
+            height: 50px;
+            border-radius: 0px;
+            border: 0px !important;
+        }
+        button {
+            height: 50px;
+            font-weight: bold;
+            border-radius: 0px !important;
+            cursor: pointer;
+        }
+    }
+
+}
+
+
+.empresa-box{
+    display: flex;
+    align-items: center;
+    max-height: 150px;
+    border: 1px solid #cecece;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    .imagem{
+        overflow: hidden;
+        img{
+            transition: all 0.4s ease-in-out;
+            object-fit: cover;
+            width : 150px;
+            height: 150px;
+        }
+    }
+    .info-empresa{
+        padding: 20px;
+        h4{
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        p{
+            font-size: 12px;
+            color: #818182;
+            font-weight: bold;
+            margin-bottom: 10px;
+            i{
+                margin-right: 6px;
+            }
+        }
+        .link{
+            font-size: 12px;
+            i{
+                margin-right: 6px;
+            }
+        }
+    }
+    &:hover{
+        .imagem{
+            img{
+                transform: scale(1.2);
+            }
+        }
+    }
+}
