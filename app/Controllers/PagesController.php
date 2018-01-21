@@ -19,6 +19,21 @@ class PagesController{
         return view('empresas');
     }
 
+    function empresa(Request $request,Response $response,$args)
+    {
+        if (isset($args['empresa']) && $args['empresa'] != "") {
+            return view('perfil-empresa');
+        }else{
+            return 'Erro';
+        }
+       
+    }
+
+    function avaliacao(Request $request,Response $response, $args)
+    {
+        return view('avaliacao');
+    }
+
     function profile(Request $request,Response $response)
     {
         if (auth()->check()){

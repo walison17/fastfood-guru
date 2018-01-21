@@ -11,6 +11,8 @@ $app->post('/cadastrar', 'RegistrationController:register')->setName('reg.regist
 
 $app->get('/', '\App\Controllers\PagesController:index')->setName('home');
 $app->get('/empresas', '\App\Controllers\PagesController:empresas')->setName('empresas');
+$app->get('/empresa/{empresa}', '\App\Controllers\PagesController:empresa')->setName('empresa');
+$app->get('/avaliacao', '\App\Controllers\PagesController:avaliacao')->setName('avaliacao');
 $app->get('/busca', '\App\Controllers\BuscaController:index')->setName('busca.index');
 
 $app->group('/', function () {

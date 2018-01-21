@@ -828,6 +828,7 @@ section#busca-content{
         }
         .link{
             font-size: 12px;
+            font-weight: bold;
             i{
                 margin-right: 6px;
             }
@@ -838,6 +839,91 @@ section#busca-content{
             img{
                 transform: scale(1.2);
             }
+        }
+    }
+}
+
+section#about-empresa{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background: #e9ecef;
+    h1{
+        font-size: 24px;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 14px;
+    }
+    p{
+        margin-bottom: 14px;
+        font-size: 16px;
+        font-weight: bold;
+        i{
+            margin-right: 10px;
+            color: #2da5c7;
+        }
+    }
+    .list-options{
+        display: flex;
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        li{
+            width : 24%;
+            margin-right: 1%;
+            &:last-child{
+                margin-right: 0px;
+            }
+
+            .btn{
+                i{
+                    margin-right: 6px;
+                }
+            }
+        }
+    }
+    .stars-content {
+        margin-bottom: 12px;
+        small{
+            font-weight: bold;
+        }
+        span{
+            font-weight: bold;
+        }
+        i {
+            color: #cecece;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            &.active {
+                color: yellow;
+            }
+        }
+    }
+}
+
+section#page-avaliacao{
+    .form-avaliacao{
+        border: 1px solid #cecece;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        .btn{
+            i{
+                margin-right: 6px;
+                font-weight: bold;
+            }
+        }
+        label{
+            font-weight: bold;
+            color: #0c6782;
+            text-transform: uppercase;
+            display: block;
+        }
+        p{
+            margin-bottom: 0px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #cecece;
+            display: inline-block;
         }
     }
 }

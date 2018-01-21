@@ -1,0 +1,54 @@
+<?= $this->layout('layout') ?>
+<?php $this->start('body') ?>
+
+<section id="page-avaliacao" class="padding-section padding-bottom">
+
+    <div class="container">
+        <?= $this->insert('_partials/_titulo',['titulo' => "Escreva sua avalição",'descricao' => 'Fale o que você acha da empresa ' . 'Nome de teste']) ?>
+        <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-12 col-12">
+                <form class="form-avaliacao"  method="post">
+                    <input type="hidden" name="id-empresa" value="teste">
+                    <div class="row">
+                        <div class="col-12 form-group">
+                            <label for="">Empresa Selecionada</label>
+                            <p>Nome da empresa</p>
+                        </div>
+                        <div class='col-12 form-group'>
+                            <label for="">Selecione uma nota</label>
+                            <div id="rateYo"></div>
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="">Escreva sua avaliação</label>
+                            <textarea name="texto" class="form-control" rows="4"></textarea>
+                        </div>
+                        <div class="col-12 text-right">
+                            <button type="submit" class="btn btn-info">
+                                <i class="fa fa-paper-plane-o"></i>
+                                Enviar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<?php $this->stop('body') ?>
+
+<?php $this->start('scripts') ?>
+<link rel="stylesheet" href="<?= asset('css/jquery.rateyo.min.css') ?>">
+<script src="<?= asset('js/jquery.rateyo.min.js') ?>"></script>
+<script>
+    $(document).ready(function () {
+        $("#rateYo").rateYo({
+            rating: 5,
+            halfStar: true,
+            starWidth: "20px"
+        });
+    });    
+</script>
+<?php $this->stop('scripts') ?>
