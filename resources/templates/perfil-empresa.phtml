@@ -1,0 +1,98 @@
+<?php $this->layout('layout') ?>
+
+<?php $this->start('body') ?>
+<section id='about-empresa'>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-2 col-12">
+                <div class="logo-content">
+                    <img src="http://via.placeholder.com/250x250" alt="Nome Empresa" title="Nome Empresa">
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-12">
+                <div class="info-content">
+                    <div class="stars-content">
+                        <small>Média de avaliações : </small>
+                        <span>(<?= 3.5 ?>)</span>
+                        <div id='rateYo'></div>
+                    </div>
+                    <h1>Nome da Empresa</h1>
+                    <p><i class="fa fa-map-marker"></i> Caruaru-PE</p>
+                    <p><i class="fa fa-phone"></i> (87)3333-3333 / (87)99999-9999</p>
+                    <p><i class="fa fa-envelope"></i> email@teste.com</p>
+                    <ul class="list-options">
+                        <li>
+                            <a href="#" data-target="#modal-about" data-toggle="modal" class="btn btn-block btn-info">
+                                <i class='fa fa-info'></i>
+                                Sobre
+                            </a>
+                        </li>
+                        <li>
+                            <a data-vbtype="iframe" href="https://www.google.com/maps/embed?xxx" class="btn btn-block btn-info venobox">
+                                <i class='fa fa-map-marker'></i>
+                                Ver no mapa
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="btn btn-block btn-info btn-ver-galeria">
+                                <i class='fa fa-image'></i>
+                                Galeria
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn btn-block btn-info">
+                                <i class='fa fa-pencil-square-o'></i>
+                                Avaliar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section id="avaliacoes" class="padding-section padding-bottom">
+    <div class="container">
+        <?= $this->insert("_partials/_titulo",["titulo" => "Avaliações","descricao" => "Veja abaixo avaliações desta empresa"]) ?>
+        <?= $this->insert("_partials/_lista-avaliacoes") ?>
+        <?= $this->insert("_partials/_paginate",['align' => 'pull-right']) ?>
+    </div>
+</section>
+
+<?= $this->insert('_partials/_modal-about') ?>
+
+<?php for($i = 1;$i <= 5;$i ++) : ?>
+<a style='display : none' href="http://via.placeholder.com/600x600" class="venobox <?= $i == 1 ? 'first-click' : '' ?>" data-gall='galeria'></a>
+<?php endfor ?>
+
+<?php $this->stop('body') ?>
+
+<?php $this->start('scripts') ?>
+<link rel="stylesheet" href="<?= asset('css/venobox.min.css') ?>">
+<script src="<?= asset('js/venobox.min.js') ?>"></script>
+<link rel="stylesheet" href="<?= asset('css/jquery.rateyo.min.css') ?>">
+<script src="<?= asset('js/jquery.rateyo.min.js') ?>"></script>
+<script>
+    $(document).ready(function () {
+        $(".venobox").venobox({
+            spinner: "wave",
+            overlayClose: false,
+            numeratio: true,
+            titlePosition: 'top'
+        });
+        $('.btn-ver-galeria').click(function(){
+            $('.first-click').trigger('click');
+        });
+        $("#rateYo").rateYo({
+            rating: <?= 3.5 ?>,
+            halfStar: true,
+            readOnly : true,
+            starWidth: "20px"
+        });
+    });
+</script>
+<?php $this->stop('scripts') ?>
+

@@ -1,0 +1,12 @@
+<?php $this->layout('layout')?>
+<?php $this->start('body')?>
+<?= $this->insert('_partials/_section-busca') ?>
+
+<section id="mais-empresas" class="padding-section padding-bottom">
+        <div class="container">
+            <?= $this->insert("_partials/_titulo",["titulo" => "Você buscou por : " . $query,"descricao" => "veja abaixo o resultado da busca"]) ?>
+            <?= $this->insert("_partials/_lista-empresas",['rowClass' => 'mt-3']) ?>
+        </div>
+</section>
+
+<?php $this->stop('body')?>

@@ -1,0 +1,21 @@
+<div class="row <?= isset($rowClass) ? $rowClass : '' ?>">
+    <?php for($i =1 ;$i <= 9;$i ++) : ?>
+        <div class="col-md-4 col-sm-6 col-12">
+            <div class="empresa-box">
+                <div class="imagem">
+                    <a href="#">
+                        <img src="https://s3-media1.fl.yelpcdn.com/bphoto/RKFvCkRQJl1jTjYP4nAP9A/ls.jpg" alt="Alt" title="Title">
+                    </a>
+                </div>
+                <div class="info-empresa">
+                    <h4><a href="#">Nome Empresa</a></h4>
+                    <p><i class="fa fa-map-marker"></i> Caruaru - PE</p>
+                    <a href="#" class='link'>
+                        <i class="fa fa-pencil-square-o"></i>
+                        Avaliar Agora
+                    </a>
+                </div>
+            </div>
+        </div>
+    <?php endfor ?>
+</div>
